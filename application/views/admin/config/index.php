@@ -15,6 +15,13 @@
       <!-- form start -->
       <form role="form" method="post" action="<?php echo base_url('admin/config'); ?>">
 
+        <?php
+        errosValidacao();
+        getMsg('msgCadastro');
+
+        echo dataDiaDb();
+        ?>
+
         <div class="box-body">
           <div class="form-group">
             <label>Titulo</label>

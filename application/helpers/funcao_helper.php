@@ -29,3 +29,12 @@ function errosValidacao(){
     echo '<div class="alert alert-danger" role="alert">'.validation_errors().'</div>';
   }
 }
+
+function dataDiaDb()
+{
+  date_default_timezone_set('America/Sao_Paulo');
+  date_default_timezone_get();
+  $formato = 'DATE_W3C';
+  $hora = time();
+  return standard_date($formato, $hora);
+}

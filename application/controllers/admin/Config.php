@@ -22,6 +22,21 @@ class Config extends CI_Controller {
 
     if ($this->form_validation->run() == TRUE) {
 
+      $dados['titulo'] = $this->input->post('titulo');
+      $dados['empresa'] = $this->input->post('empresa');
+      $dados['cep'] = $this->input->post('cep');
+      $dados['endereco'] = $this->input->post('endereco');
+      $dados['bairro'] = $this->input->post('bairro');
+      $dados['cidade'] = $this->input->post('cidade');
+      $dados['complemento'] = $this->input->post('complemento');
+      $dados['estado'] = $this->input->post('estado');
+      $dados['email'] = $this->input->post('email');
+      $dados['telefone'] = $this->input->post('telefone');
+      $dados['p_destaque'] = $this->input->post('p_destaque');
+      $dados['data_atualizacao'] = dataDiaDb();
+
+      $this->config_model->doUpdate($dados);
+      redirect('admin/config', 'refresh');
 
     } else{
       $data['titulo'] = "Configuracoes";

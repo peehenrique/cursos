@@ -13,51 +13,51 @@
         <h3 class="box-title">Salvar configuracoes</h3>
       </div>
       <!-- form start -->
-      <form role="form">
+      <form role="form" method="post" action="<?php echo base_url('admin/config'); ?>">
         <div class="box-body">
           <div class="form-group">
             <label>Titulo</label>
-            <input type="text" class="form-control" name="titulo" placeholder="Titulo">
+            <input type="text" class="form-control" name="titulo" placeholder="Titulo" required>
           </div>
           <div class="form-group">
             <label>Nome da empresa</label>
-            <input type="text" class="form-control" name="empresa" placeholder="Empresa">
+            <input type="text" class="form-control" name="empresa" placeholder="Empresa" required>
           </div>
           <div class="form-group">
             <label>CEP</label>
-            <input type="text" class="form-control" name="cep" placeholder="CEP">
+            <input type="text" class="form-control" name="cep" placeholder="CEP" required>
           </div>
           <div class="form-group">
             <label>ENDERECO</label>
-            <input type="text" class="form-control" name="endereco" placeholder="Endereco">
+            <input type="text" class="form-control" name="endereco" placeholder="Endereco" required>
           </div>
           <div class="form-group">
             <label>Bairro</label>
-            <input type="text" class="form-control" name="bairro" placeholder="Bairro">
+            <input type="text" class="form-control" name="bairro" placeholder="Bairro" required>
           </div>
           <div class="form-group">
             <label>Cidade</label>
-            <input type="text" class="form-control" name="cidade" placeholder="Cidade">
+            <input type="text" class="form-control" name="cidade" placeholder="Cidade" required>
           </div>
           <div class="form-group">
             <label>Complemento</label>
-            <input type="text" class="form-control" name="complemento" placeholder="Complemento">
+            <input type="text" class="form-control" name="complemento" placeholder="Complemento" required>
           </div>
           <div class="form-group">
             <label>Estado</label>
-            <input type="text" class="form-control" name="estado" placeholder="Estado">
+            <input type="text" class="form-control" name="estado" placeholder="Estado" required>
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" class="form-control" name="email" placeholder="Email">
+            <input type="email" class="form-control" name="email" placeholder="Email" required>
           </div>
           <div class="form-group">
             <label>Telefone</label>
-            <input type="text" class="form-control" name="telefone" placeholder="Telefone">
+            <input type="text" class="form-control" name="telefone" placeholder="Telefone" required>
           </div>
           <div class="form-group">
             <label>Produtos em destaque</label>
-            <input type="text" class="form-control" name="p_destaque" placeholder="Produtos em destaque">
+            <input type="text" class="form-control" name="p_destaque" placeholder="Produtos em destaque" required>
           </div>
 
         </div>

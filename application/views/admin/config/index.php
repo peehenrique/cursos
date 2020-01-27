@@ -14,50 +14,82 @@
       </div>
       <!-- form start -->
       <form role="form" method="post" action="<?php echo base_url('admin/config'); ?>">
+
         <div class="box-body">
           <div class="form-group">
             <label>Titulo</label>
-            <input type="text" class="form-control" name="titulo" placeholder="Titulo" required>
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('titulo', $query->titulo, $attributes);
+            ?>
           </div>
           <div class="form-group">
             <label>Nome da empresa</label>
-            <input type="text" class="form-control" name="empresa" placeholder="Empresa" required>
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('empresa', $query->empresa, $attributes);
+            ?>
           </div>
           <div class="form-group">
             <label>CEP</label>
-            <input type="text" class="form-control" name="cep" placeholder="CEP" required>
+            <!-- <input type="text" class="form-control" name="cep" placeholder="CEP" required> -->
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('cep', $query->cep, $attributes);
+            ?>
           </div>
           <div class="form-group">
             <label>ENDERECO</label>
-            <input type="text" class="form-control" name="endereco" placeholder="Endereco" required>
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('endereco', $query->endereco, $attributes);
+            ?>
           </div>
           <div class="form-group">
             <label>Bairro</label>
-            <input type="text" class="form-control" name="bairro" placeholder="Bairro" required>
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('bairro', $query->bairro, $attributes);
+            ?>
           </div>
           <div class="form-group">
             <label>Cidade</label>
-            <input type="text" class="form-control" name="cidade" placeholder="Cidade" required>
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('cidade', $query->cidade, $attributes);
+            ?>
           </div>
           <div class="form-group">
             <label>Complemento</label>
-            <input type="text" class="form-control" name="complemento" placeholder="Complemento" required>
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('complemento', $query->complemento, $attributes);
+            ?>
           </div>
           <div class="form-group">
             <label>Estado</label>
-            <input type="text" class="form-control" name="estado" placeholder="Estado" required>
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('estado', $query->estado, $attributes);
+            ?>
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" class="form-control" name="email" placeholder="Email" required>
+            <input type="email" class="form-control" name="email" placeholder="Email" value="<?php echo $query->email; ?>" required>
           </div>
           <div class="form-group">
             <label>Telefone</label>
-            <input type="text" class="form-control" name="telefone" placeholder="Telefone" required>
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('telefone', $query->telefone, $attributes);
+            ?>
           </div>
           <div class="form-group">
             <label>Produtos em destaque</label>
-            <input type="text" class="form-control" name="p_destaque" placeholder="Produtos em destaque" required>
+            <?php
+            $attributes = array('class' => 'form-control', 'required' => '');
+            echo form_input('p_destaque', $query->p_destaque, $attributes);
+            ?>
           </div>
 
         </div>

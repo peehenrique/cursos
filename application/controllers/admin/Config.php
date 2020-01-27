@@ -12,6 +12,8 @@ class Config extends CI_Controller {
     }
 
     $this->load->library('form_validation');
+    $this->load->helper('form');
+    $this->load->model('config_model');
   }
 
   public function index()
@@ -19,12 +21,12 @@ class Config extends CI_Controller {
     $this->form_validation->set_rules('titulo', 'Titulo', 'required|trim');
 
     if ($this->form_validation->run() == TRUE) {
-      // code...
-      echo "<pre>";
-      print_r($this->input->post());
+
+
     } else{
       $data['titulo'] = "Configuracoes";
       $data['view'] = 'admin/config/index';
+      $data['query'] = $this->config_model->getConfig();
 
       $this->load->view('admin/template/index', $data);
     }

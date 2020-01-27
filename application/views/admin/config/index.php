@@ -12,7 +12,6 @@
       <div class="box-header with-border">
         <h3 class="box-title">Salvar configuracoes</h3>
       </div>
-      <!-- /.box-header -->
       <!-- form start -->
       <form role="form">
         <div class="box-body">

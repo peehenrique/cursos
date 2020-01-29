@@ -221,6 +221,7 @@
         <li><a href="../widgets.html"><i class="fa fa-th"></i> <span>Produtos</span></a></li>
         <li><a href="../widgets.html"><i class="fa fa-th"></i> <span>Categorias</span></a></li>
         <li><a href="../widgets.html"><i class="fa fa-th"></i> <span>Marcas</span></a></li>
+        <li><a href="<?php echo base_url('admin/clientes'); ?>"><i class="fa fa-th"></i> <span>Clientes</span></a></li>
         <li><a href="<?php echo base_url('admin/config'); ?>"><i class="fa fa-th"></i> <span>Configuracoes</span></a></li>
         <li><a href="<?php echo base_url('admin/usuarios'); ?>"><i class="fa fa-th"></i> <span>Usuarios</span></a></li>
         <li><a href="<?php echo base_url('admin/login/sair'); ?>"><i class="fa fa-th"></i> <span>Sair</span></a></li>
@@ -277,6 +278,8 @@
 <script src="<?php echo base_url('/public/js/adminlte.min.js'); ?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('/public/js/demo.js'); ?>"></script>
+
+<script src="<?php echo base_url('/public/dist/jquery-mask/dist/jquery.mask.min.js'); ?>"></script>
 
 <script src="<?php echo base_url('/public/js/main.js'); ?>"></script>
 

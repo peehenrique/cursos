@@ -11,7 +11,6 @@ class Config extends CI_Controller {
       redirect('admin/login');
     }
 
-    $this->load->library('form_validation');
     $this->load->helper('form');
     $this->load->model('config_model');
   }

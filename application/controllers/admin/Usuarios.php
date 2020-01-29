@@ -10,7 +10,6 @@ class Usuarios extends CI_Controller {
     {
       redirect('admin/login');
     }
-    $this->load->library('form_validation');
 
   }
 

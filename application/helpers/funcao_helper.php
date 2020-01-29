@@ -38,3 +38,10 @@ function dataDiaDb()
   $hora = time();
   return standard_date($formato, $hora);
 }
+
+function formataDataDb($data=NULL){
+  if ($data) {
+    $data = explode("/", $data);
+    return $data[2] . '-' . $data[1] . '-' . $data[0];
+  }
+}

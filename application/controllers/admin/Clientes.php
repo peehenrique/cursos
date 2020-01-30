@@ -30,11 +30,11 @@ class Clientes extends CI_Controller {
 
     if ($id_cliente) {
 
-      $dados = $this->ion_auth->user($id)->row();
+      $dados = $this->clientes_model->getClientesId($id_cliente);
 
       if (!$dados) {
-        setMsg('msgCadastro', 'Usuario nao econtrado', 'erro');
-        redirect('admin/usuarios', 'refresh');
+        setMsg('msgCadastro', 'Cliente nao econtrado', 'erro');
+        redirect('admin/clientes', 'refresh');
       }
 
       $data['titulo'] = 'Atualizar cliente';
@@ -64,18 +64,35 @@ class Clientes extends CI_Controller {
       $dadosCliente['email'] = $this->input->post('email');
       $dadosCliente['senha'] = $this->input->post('senha');
       $dadosCliente['ativo'] = $this->input->post('ativo');
-      $dadosCliente['data_cadastro'] = dataDiaDb();
-      $dadosCliente['ultima_atualizacao'] = dataDiaDb();
 
-      $this->clientes_model->doInsert($dadosCliente);
+      if ($this->input->post('id_cliente')) {
+        $dadosCliente['ultima_atualizacao'] = dataDiaDb();
+        $this->clientes_model->doUpdate($dadosCliente, $this->input->post('id_cliente'));
+        redirect('admin/clientes', 'refresh');
 
-      redirect('admin/clientes/modulo', 'refresh');
-
+      } else{
+        $dadosCliente['data_cadastro'] = dataDiaDb();
+        $this->clientes_model->doInsert($dadosCliente);
+        redirect('admin/clientes/modulo', 'refresh');
+      }
 
     } else{
       $this->modulo();
     }
 
+  }
+
+  public function del($id_cliente=NULL)
+  {
+    if ($id_cliente) {
+      $this->clientes_model->doDelete($id_cliente);
+      setMsg("msgCadastro", "Cliente deletado com sucesso", "sucesso");
+      redirect('admin/clientes', 'refresh');
+
+    } else{
+      setMsg("msgCadastro", "Nao foi possivel deletar o cliente", "erro");
+      redirect('admin/clientes', 'refresh');
+    }
   }
 
 }

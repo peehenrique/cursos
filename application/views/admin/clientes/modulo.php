@@ -29,9 +29,9 @@
         ?>
 
         <div class="form-group">
-          <label class="col-sm-2 control-label">Nome*</label>
+          <label class="col-sm-2 control-label">Nome</label>
           <div class="col-sm-7">
-            <input type="text" name="nome" class="form-control" placeholder="Nome*" value="<?php echo ( $dados != NULL ? $dados->nome : set_value('nome')); ?>" required="required">
+            <input type="text" name="nome" class="form-control" placeholder="Nome*" value="<?php echo ( $dados != NULL ? $dados->nome : set_value('nome')); ?>">
           </div>
         </div>
 
@@ -52,7 +52,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Data de nascimento</label>
           <div class="col-sm-7">
-            <input type="text" name="data_nascimento" id="data_nascimento" class="form-control" placeholder="Data de nascimento" value="<?php echo ( $dados != NULL ? $dados->data_nascimento : set_value('data_nascimento')); ?>">
+            <input type="text" name="data_nascimento" id="data_nascimento" class="form-control" placeholder="Data de nascimento" value="<?php echo ( $dados != NULL ? date('d-m-Y', strtotime($dados->data_nascimento)) : set_value('data_nascimento')); ?>">
           </div>
         </div>
 
@@ -66,7 +66,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Senha</label>
           <div class="col-sm-4">
-            <input type="password" name="senha" class="form-control" placeholder="Senha">
+            <input type="password" name="senha" class="form-control" value="" placeholder="Senha">
           </div>
         </div>
 
@@ -74,7 +74,6 @@
           <label class="col-sm-2 control-label">Status Usuario</label>
           <div class="col-sm-4">
             <select class="form-control" name="ativo">
-
               <?php if($dados) { ?>
                 <option value="0" <?= ($dados->ativo == 0 ? 'selected="selected"' : '') ?>>Inativo</option>
                 <option value="1" <?= ($dados->ativo == 1 ? 'selected="selected"' : '') ?>>Ativo</option>
@@ -88,7 +87,7 @@
 
 
         <?php if ($dados) { ?>
-          <input type="hidden" name="id_usuario" value="<?= $dados->id; ?>">
+          <input type="hidden" name="id_cliente" value="<?= $dados->id; ?>">
         <?php  }  ?>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">

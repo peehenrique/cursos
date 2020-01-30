@@ -26,6 +26,7 @@
           <tr>
             <th scope="col">Nome</th>
             <th scope="col">E-mail</th>
+            <th scope="col">Data Nascimento</th>
             <th scope="col" class="text-center">Status</th>
             <th scope="col" class="text-right">Opções</th>
           </tr>
@@ -37,10 +38,11 @@
             echo '<tr>';
             echo '<td>'. $row->nome .'</td>';
             echo '<td>'. $row->email .'</td>';
+            echo '<td>'. formataDataView($row->data_nascimento) .'</td>';
             echo '<td class="text-center">'. ($row->ativo == 1? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>').'</td>';
             echo "<td class='text-right'>";
-            echo '<a href="'. base_url('admin/clientes/modelo/'. $row->id).'" title="Editar" class="btn btn-primary" style="margin-right:5px"><i class="fa fa-pencil-square"></i></button>';
-            echo '<a href="'. base_url('admin/clientes/del/'. $row->id).'" title="Apagar" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>';
+            echo '<a href="'. base_url('admin/clientes/modulo/'. $row->id).'" title="Editar" class="btn btn-primary" style="margin-right:5px"><i class="fa fa-pencil-square"></i></button>';
+            echo '<a href="'. base_url('admin/clientes/del/'. $row->id).'" title="Apagar" class="btn btn-danger btn-apagar-registro"><i class="fa fa-trash-o"></i></button>';
             echo "</td>";
             echo "</tr>";
           }

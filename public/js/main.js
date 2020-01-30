@@ -1,5 +1,14 @@
 $(document).ready( function () {
 
+  $('.btn-apagar-registro').on('click', function() {
+
+    if (confirm("Deseja apagar esse cliente?")) {
+      return true;
+    } else{
+      return false;
+    }
+  });
+
   $('.table_listar_data_table').DataTable({
     "language": {
       "sEmptyTable": "Nenhum registro encontrado",

@@ -219,7 +219,7 @@
         <li class="header">MAIN NAVIGATION</li>
         <li><a href="<?php echo base_url('admin/'); ?>"><i class="fa fa-th"></i> <span>Dashboard</span></a></li>
         <li><a href="../widgets.html"><i class="fa fa-th"></i> <span>Produtos</span></a></li>
-        <li><a href="../widgets.html"><i class="fa fa-th"></i> <span>Categorias</span></a></li>
+        <li><a href="<?php echo base_url('admin/categorias'); ?>"><i class="fa fa-th"></i> <span>Categorias</span></a></li>
         <li><a href="../widgets.html"><i class="fa fa-th"></i> <span>Marcas</span></a></li>
         <li><a href="<?php echo base_url('admin/clientes'); ?>"><i class="fa fa-th"></i> <span>Clientes</span></a></li>
         <li><a href="<?php echo base_url('admin/config'); ?>"><i class="fa fa-th"></i> <span>Configuracoes</span></a></li>

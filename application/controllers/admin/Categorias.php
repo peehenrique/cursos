@@ -55,7 +55,6 @@ class Categorias extends CI_Controller {
 
       $dadosCategorias['nome'] = $this->input->post('nome');
       $dadosCategorias['ativo'] = $this->input->post('ativo');
-
       if ($this->input->post('id_cat_pai')) {
         $dadosCategorias['id_cat_pai'] = $this->input->post('id_cat_pai');
       } else{
@@ -74,7 +73,6 @@ class Categorias extends CI_Controller {
         redirect('admin/categorias/modulo', 'refresh');
       }
 
-
     } else{
       $this->modulo();
     }
@@ -84,11 +82,9 @@ class Categorias extends CI_Controller {
   {
     if ($id_categoria) {
       $this->categorias_model->doDelete($id_categoria);
-      setMsg("msgCadastro", "Categoria deletado com sucesso", "sucesso");
       redirect('admin/categorias', 'refresh');
 
     } else{
-      setMsg("msgCadastro", "Nao foi possivel deletar a categoria", "erro");
       redirect('admin/categorias', 'refresh');
     }
   }

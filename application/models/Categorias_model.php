@@ -58,11 +58,20 @@ class Categorias_model extends CI_Model{
     } else{
       setMsg('msgCadastro', 'Nao foi possivel atualizar a categoria', 'erro');
     }
-
   }
 
   public function doDelete($id_categoria=NULL)
   {
-    
+    if ($id_categoria) {
+      $this->db->delete('categorias', array('id' => $id_categoria));
+
+      if ($this->db->affected_rows() > 0) {
+        setMsg('msgCadastro', 'Categoria deletada com sucesso', 'sucesso');
+      } else{
+        setMsg('msgCadastro', 'Nao foi possivel deletar a categoria', 'erro');
+      }
+    }
   }
+
+  
 }

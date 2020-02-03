@@ -52,3 +52,17 @@ function formataDataView($data=NULL){
     return $data[2] . '/' . $data[1] . '/' . $data[0];
   }
 }
+
+
+function formataMoedaReal($valor=NULL, $real=FALSE){
+  if ($valor) {
+    $valor = ($real == TRUE ? 'R$ ' : ''). number_format($valor, 2, ',', '.');
+    return $valor;
+  }
+}
+
+function formatoDecimal($valor=NULL){
+    $valor = str_replace('.', '', $valor);
+    $valor = str_replace(',', '.', $valor);
+    return $valor;
+}

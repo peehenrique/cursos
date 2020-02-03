@@ -14,7 +14,6 @@ class Categorias extends CI_Controller {
     $this->load->model('categorias_model');
 
   }
-
   public function index()
   {
     $data['titulo'] = "Lista de categorias";
@@ -35,6 +34,8 @@ class Categorias extends CI_Controller {
         setMsg("msgCadastro", "Categoria nao encontrada", "erro");
         redirect('admin/categorias', 'refresh');
       }
+
+
     } else{
       $data['titulo'] = "Nova categoria";
     }

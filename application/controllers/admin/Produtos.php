@@ -81,4 +81,38 @@ class Produtos extends CI_Controller {
     }
   }
 
+  public function upload()
+  {
+
+    //PASTA PARA ARMAZENAR OS ARQUIVOS DOS PRODUTOS
+    $pasta = 'C:/xampp/htdocs/CURSOS/PAG_SEGURO/loja_virtual/uploads/fotos_produtos/';
+
+    //SETAR AS CONFIGURACOES DA BIBLIOTECA
+    $config['upload_path'] = $pasta;
+    $config['allowed_types'] = 'jpg|png|gif';
+    $config['max_size'] = 2048;
+    $config['encrypt_name'] = TRUE;
+
+    //CARREGADO A BIBLIOTECA DE UPLOAD E PASSSA AS CONFIGURACOES
+    $this->load->library('upload', $config);
+
+    //VERIFICA SE TEM UM ENVIO DE FOTO
+    if ($this->upload->do_upload('foto_produto')) {
+
+      //SE TIVER PEGAMOS OS DADOS DO ARQUIVOS ENVIADO
+      $retorno['file_name'] = $this->upload->data('file_name');
+      $retorno['msg'] = 'Foto enviada com sucesso!';
+      $retorno['erro'] = 0;
+
+    } else{
+      //ERRO NO ENVIO RETORNAMOS O ERRO
+      $retorno['msg'] = $this->upload->display_errors();
+      $retorno['erro'] = 25;
+    }
+
+    // TRANSFORMAMOS NOSSA ARRAY EM JSON
+    echo json_encode($retorno);
+
+  }
+
 }

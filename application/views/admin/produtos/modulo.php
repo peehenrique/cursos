@@ -171,6 +171,14 @@
           </div>
         </div>
 
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Foto do produto</label>
+          <div class="col-md-6">
+            <div id="file_upload_fotos_produtos">Upload</div>
+          </div>
+        </div>
+
         <?php if ($dados) { ?>
           <input type="hidden" name="id_produto" value="<?= $dados->id; ?>">
         <?php  }  ?>

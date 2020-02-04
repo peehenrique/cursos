@@ -51,4 +51,12 @@ $(document).ready( function () {
   $('#cpf').mask('000.000.000-00', {reverse: true});
 
 
+
+  // CODIGO PARA UPLOAD DE FOTOS DOS PRODUTOS
+  $("#file_upload_fotos_produtos").uploadFile({
+    url:"http://localhost/CURSOS/PAG_SEGURO/loja_virtual/admin/produtos/upload",
+    fileName:"foto_produto"
+  });
+
+
 } );

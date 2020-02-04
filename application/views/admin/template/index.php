@@ -22,6 +22,9 @@
 
   <link rel="stylesheet" href="<?php echo base_url('/public/dist/data-tables/datatables.css'); ?>">
 
+  <!-- //BIBLIOTECA DE UPLOAD CSS-->
+  <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -281,8 +284,10 @@
 
 <script src="<?php echo base_url('/public/dist/jquery-mask/dist/jquery.mask.min.js'); ?>"></script>
 
-<script src="<?php echo base_url('/public/js/main.js'); ?>"></script>
+<!-- //BIBLIOTECA DE UPLOAD JS-->
+<script src="http://hayageek.github.io/jQuery-Upload-File/4.0.11/jquery.uploadfile.min.js"></script>
 
+<script src="<?php echo base_url('/public/js/main.js'); ?>"></script>
 
 
 </body>

@@ -27,7 +27,6 @@ class Produtos_model extends CI_Model{
     $this->db->where('ativo', 1);
     return $this->db->get('categorias')->result();
   }
-
   public function doInsert($dados=NULL)
   {
     if (is_array($dados)) {

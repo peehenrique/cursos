@@ -26,8 +26,21 @@ class Produtos extends CI_Controller {
   public function modulo($id_produto=NULL)
   {
     $dados  = NULL;
+    $fotos = NULL;
     if ($id_produto) {
       $data['titulo'] = "Atualizar produto";
+      $query = $this->produtos_model->getProdutosId($id_produto);
+
+      if ($query) {
+        $dados = $query;
+        $fotos = $this->produtos_model->getFotosProduto($query->id);
+
+      } else{
+        setMsg('msgCadastro', 'Produto nao encontrado , tente novamente', 'erro');
+        redirect('admin/produtos', 'refresh');
+      }
+
+
     } else{
       $data['titulo'] = "Novo produto";
     }
@@ -37,6 +50,7 @@ class Produtos extends CI_Controller {
     $data['navegacao'] = array('titulo' => 'Lista de produtos', 'link' => 'admin/produtos');
     $data['marcas'] = $this->produtos_model->getMarcas();
     $data['categorias'] = $this->produtos_model->getCategorias();
+    $data['fotos'] = $fotos;
 
     $this->load->view('admin/template/index', $data);
   }
@@ -73,13 +87,26 @@ class Produtos extends CI_Controller {
         $dadosProdutos['id_categoria'] = NULL;
       }
 
-      $this->produtos_model->doInsert($dadosProdutos);
+      if ($this->input->post('id_produto')) {
+
+        //PEGANDO O ID DO PRODUTO VIA POST
+        $id_produto = $this->input->post('id_produto');
+
+        $dadosProdutos['ultima_atualizacao'] = dataDiaDb();
+        $this->produtos_model->doUpdate($dadosProdutos, $id_produto);
+
+        //APAGAR FOTOS ANTIGAS
+        $this->produtos_model->doDeleteFotoProduto($id_produto);
+
+      } else{
+        $dadosProdutos['data_cadastro'] = dataDiaDb();
+        //CADASTRO NOVO PRODUTO
+        $this->produtos_model->doInsert($dadosProdutos);
+        //PEGO O ID PRODUTO ADICIONADO NO BANCO DE DADOS
+        $id_produto = $this->session->userdata('last_id');
+      }
 
       // CADASTRAR FOTO PRODUTO
-
-      //PEGO O ID PRODUTO ADICIONADO NO BANCO DE DADOS
-      $id_produto = $this->session->userdata('last_id');
-
       $foto_produto = $this->input->post('foto_produto');
       $t_foto = count($foto_produto);
 
@@ -91,7 +118,12 @@ class Produtos extends CI_Controller {
 
       //FIM CADASTRAR NOVA FOTO PRODUTO
 
-      redirect('admin/produtos/modulo', 'refresh');
+      if ($this->input->post('id_produto')) {
+        redirect('admin/produtos', 'refresh');
+      } else{
+        redirect('admin/produtos/modulo', 'refresh');
+      }
+
 
     } else{
       $this->modulo();
@@ -130,6 +162,16 @@ class Produtos extends CI_Controller {
     // TRANSFORMAMOS NOSSA ARRAY EM JSON
     echo json_encode($retorno);
 
+  }
+
+  public function del($id=NULL)
+  {
+    if ($id) {
+      $this->produtos_model->doDelete($id);
+      redirect('admin/produtos', 'refresh');
+    } else{
+      redirect('admin/produtos', 'refresh');
+    }
   }
 
 

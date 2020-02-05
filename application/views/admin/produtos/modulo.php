@@ -80,7 +80,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Informacoes</label>
           <div class="col-sm-7">
-            <textarea name="informacao" class="form-control" rows="8" cols="80"><?php echo ( $dados != NULL ? $dados->informacoes : set_value('informacoes')); ?></textarea>
+            <textarea name="informacao" class="form-control" rows="8" cols="80"><?php echo ( $dados != NULL ? $dados->informacao : set_value('informacao')); ?></textarea>
           </div>
         </div>
 
@@ -146,7 +146,7 @@
 
               <?php foreach ($categorias as $categoria): ?>
                 <?php if($dados) { ?>
-                  <option value="<?php echo $marca->id; ?>" <?= ($categoria->id == $dados->id_categoria ? 'selected="selected"' : '') ?>><?php echo $marca->nome_marca; ?></option>
+                  <option value="<?php echo $categoria->id; ?>" <?= ($categoria->id == $dados->id_categoria ? 'selected="selected"' : '') ?>><?php echo $marca->nome_marca; ?></option>
                 <?php } else{ ?>
                   <option value="<?php echo $categoria->id; ?>"><?php echo $categoria->nome; ?></option>
                 <?php } ?>
@@ -180,7 +180,18 @@
 
         <!-- CAMPO PARA UPLOAD PRODUTO -->
         <div class="form-group">
-          <div class="col-md-10 retorno_fotos_produtos"></div>
+          <div class="col-md-10 retorno_fotos_produtos">
+
+            <?php if ($fotos): ?>
+              <?php foreach ($fotos as $foto): ?>
+                <div class="col-sm-3 img_foto_produtos_view">
+                  <img width="120px" src="<?= base_url('uploads/fotos_produtos/'.$foto->foto); ?>" />
+                  <input type="hidden" value="<?php echo $foto->foto; ?>" name="foto_produto[]" />
+                </div>
+              <?php endforeach; ?>
+            <?php endif; ?>
+
+          </div>
         </div>
 
         <?php if ($dados) { ?>

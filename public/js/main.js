@@ -1,5 +1,26 @@
 $(document).ready( function () {
 
+  // CODIGO PARA UPLOAD DE FOTOS DOS PRODUTOS
+  $("#file_upload_fotos_produtos").uploadFile({
+    url:"http://localhost/CURSOS/PAG_SEGURO/loja_virtual/admin/produtos/upload",
+    fileName:"foto_produto",
+    returnType: 'json',
+    onSuccess: function(file, data){
+      $('.ajax-file-upload-statusbar').hide();
+      if (data.erro == 0) {
+
+        $('.retorno_fotos_produtos').append('<div class="col-sm-3 img_foto_produtos_view"><img width="120px" src="http://localhost/CURSOS/PAG_SEGURO/loja_virtual/uploads/fotos_produtos/'+data.file_name+'" /><input type="hidden" value="'+data.file_name+'" name="foto_produto[]" /></div>')
+
+      } else{
+        alert(data.msg);
+      }
+    },
+    onError: function(files,status,errMsg,pd){
+      alert(files + '<br>' + errMsg);
+    }
+
+  });
+
   $('.btn-apagar-registro').on('click', function() {
 
     if (confirm("Deseja apagar esse cliente?")) {
@@ -49,14 +70,5 @@ $(document).ready( function () {
   $('#valor').mask('000.000.000.000.000,00', {reverse: true});
 
   $('#cpf').mask('000.000.000-00', {reverse: true});
-
-
-
-  // CODIGO PARA UPLOAD DE FOTOS DOS PRODUTOS
-  $("#file_upload_fotos_produtos").uploadFile({
-    url:"http://localhost/CURSOS/PAG_SEGURO/loja_virtual/admin/produtos/upload",
-    fileName:"foto_produto"
-  });
-
 
 } );

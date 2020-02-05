@@ -10,3 +10,6 @@
 .mb-4{
   margin-bottom: 4em;
 }
+.img_foto_produtos_view img{
+  border-radius: 10px;
+}

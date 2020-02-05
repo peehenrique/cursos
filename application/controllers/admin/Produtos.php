@@ -74,6 +74,23 @@ class Produtos extends CI_Controller {
       }
 
       $this->produtos_model->doInsert($dadosProdutos);
+
+      // CADASTRAR FOTO PRODUTO
+
+      //PEGO O ID PRODUTO ADICIONADO NO BANCO DE DADOS
+      $id_produto = $this->session->userdata('last_id');
+
+      $foto_produto = $this->input->post('foto_produto');
+      $t_foto = count($foto_produto);
+
+      for ($i=0; $i < $t_foto ; $i++) {
+        $foto['id_produto'] = $id_produto;
+        $foto['foto'] = $foto_produto[$i];
+        $this->produtos_model->doInsertFoto($foto);
+      }
+
+      //FIM CADASTRAR NOVA FOTO PRODUTO
+
       redirect('admin/produtos/modulo', 'refresh');
 
     } else{
@@ -114,5 +131,7 @@ class Produtos extends CI_Controller {
     echo json_encode($retorno);
 
   }
+
+
 
 }

@@ -33,10 +33,23 @@ class Produtos_model extends CI_Model{
     if (is_array($dados)) {
       $this->db->insert('produtos', $dados);
       if ($this->db->affected_rows() > 0) {
+
+        // PEGAR ID PARA DOWNLOAD DE FOTO
+        $last_id = $this->db->insert_id();
+        $this->session->set_userdata('last_id', $last_id);
+
         setMsg('msgCadastro', 'Produto cadastrado com sucesso', 'sucesso');
       } else{
         setMsg('msgCadastro', 'Nao foi possivel realizar o cadastro', 'erro');
       }
+    }
+  }
+
+  // ADICIONAR FOTOS
+  public function doInsertFoto($dados)
+  {
+    if (is_array($dados)) {
+      $this->db->insert('produtos_fotos', $dados);
     }
   }
 

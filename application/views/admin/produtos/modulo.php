@@ -171,12 +171,16 @@
           </div>
         </div>
 
-
         <div class="form-group">
           <label class="col-sm-2 control-label">Foto do produto</label>
           <div class="col-md-6">
             <div id="file_upload_fotos_produtos">Upload</div>
           </div>
+        </div>
+
+        <!-- CAMPO PARA UPLOAD PRODUTO -->
+        <div class="form-group">
+          <div class="col-md-10 retorno_fotos_produtos"></div>
         </div>
 
         <?php if ($dados) { ?>

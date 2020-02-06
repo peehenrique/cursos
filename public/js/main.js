@@ -9,7 +9,7 @@ $(document).ready( function () {
       $('.ajax-file-upload-statusbar').hide();
       if (data.erro == 0) {
 
-        $('.retorno_fotos_produtos').append('<div class="col-sm-3 img_foto_produtos_view"><img width="120px" src="http://localhost/CURSOS/PAG_SEGURO/loja_virtual/uploads/fotos_produtos/'+data.file_name+'" /><input type="hidden" value="'+data.file_name+'" name="foto_produto[]" /></div>')
+        $('.retorno_fotos_produtos').append('<div class="col-sm-3 img_foto_produtos_view"><img width="120px" src="http://localhost/CURSOS/PAG_SEGURO/loja_virtual/uploads/fotos_produtos/'+data.file_name+'" /><input type="hidden" value="'+data.file_name+'" name="foto_produto[]" /><a href="#" class="btn btn-danger btn-apagar-foto-produto"><i class="fa fa-trash"></i> </a></div>')
 
       } else{
         alert(data.msg);
@@ -19,6 +19,19 @@ $(document).ready( function () {
       alert(files + '<br>' + errMsg);
     }
 
+  });
+
+  // FUNCAO PARA APAGAR FOTO
+  $(document).on('click', '.btn-apagar-foto-produto', function(){
+
+    if (confirm("Deseja apagar essa foto?")) {
+
+      $(this).parent().remove();
+
+      return true;
+    } else{
+      return false;
+    }
   });
 
   $('.btn-apagar-registro').on('click', function() {

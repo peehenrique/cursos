@@ -146,7 +146,7 @@
 
               <?php foreach ($categorias as $categoria): ?>
                 <?php if($dados) { ?>
-                  <option value="<?php echo $categoria->id; ?>" <?= ($categoria->id == $dados->id_categoria ? 'selected="selected"' : '') ?>><?php echo $marca->nome_marca; ?></option>
+                  <option value="<?php echo $categoria->id; ?>" <?= ($categoria->id == $dados->id_categoria ? 'selected="selected"' : '') ?>><?php echo $categoria->nome; ?></option>
                 <?php } else{ ?>
                   <option value="<?php echo $categoria->id; ?>"><?php echo $categoria->nome; ?></option>
                 <?php } ?>
@@ -187,6 +187,7 @@
                 <div class="col-sm-3 img_foto_produtos_view">
                   <img width="120px" src="<?= base_url('uploads/fotos_produtos/'.$foto->foto); ?>" />
                   <input type="hidden" value="<?php echo $foto->foto; ?>" name="foto_produto[]" />
+                  <a href="#" class="btn btn-danger btn-apagar-foto-produto"> <i class="fa fa-trash"></i> </a>
                 </div>
               <?php endforeach; ?>
             <?php endif; ?>

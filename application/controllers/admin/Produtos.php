@@ -40,7 +40,6 @@ class Produtos extends CI_Controller {
         redirect('admin/produtos', 'refresh');
       }
 
-
     } else{
       $data['titulo'] = "Novo produto";
     }
@@ -123,7 +122,6 @@ class Produtos extends CI_Controller {
       } else{
         redirect('admin/produtos/modulo', 'refresh');
       }
-
 
     } else{
       $this->modulo();

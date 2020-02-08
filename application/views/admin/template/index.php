@@ -197,12 +197,12 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENU</li>
         <li><a href="<?php echo base_url('admin/'); ?>"><i class="fa fa-th"></i> <span>Dashboard</span></a></li>
+        <li><a href="<?php echo base_url('admin/pedidos'); ?>"><i class="fa fa-th"></i> <span>Pedidos</span></a></li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-table"></i> <span>Produtos</span>
@@ -226,8 +226,8 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url('admin/config'); ?>"><i class="fa fa-circle-o"></i> Config Geral</a></li>
-            <li><a href="<?php echo base_url('admin/pagseguro'); ?>"><i class="fa fa-circle-o"></i> PagSeguro</a></li>
-            <li><a href="<?php echo base_url('admin/correios'); ?>"><i class="fa fa-circle-o"></i> Correios</a></li>
+            <li><a href="<?php echo base_url('admin/config/pagseguro'); ?>"><i class="fa fa-circle-o"></i> PagSeguro</a></li>
+            <li><a href="<?php echo base_url('admin/config/correio'); ?>"><i class="fa fa-circle-o"></i> Correios</a></li>
             <li><a href="<?php echo base_url('admin/usuarios'); ?>"><i class="fa fa-th"></i> <span>Usuarios</span></a></li>
           </ul>
         </li>

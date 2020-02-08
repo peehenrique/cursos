@@ -43,6 +43,49 @@ $(document).ready( function () {
     }
   });
 
+  // MUDAR STATUS DO PEDIDO
+  $(document).on('click', '.btn-mudar-status-pedido', function(){
+
+    var id = $(this).attr('data-id-pedido');
+
+    $.ajax({
+      type: "GET",
+      url: "http://localhost/CURSOS/PAG_SEGURO/loja_virtual/admin/pedidos/getPedido/"+ id + "",
+      dataType: "json",
+      success: function(res){
+        if (res.erro == 0) {
+
+          $('.modal_dinamico').append('<div class="modal fade" id="modal_pedido'+id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">'+
+        '<div class="modal-dialog" role="document">'+
+          '<div class="modal-content">'+
+              '<div class="modal-header">'+
+                '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+              '<h4 class="modal-title" id="myModalLabel">Modal title</h4></div>'+
+            '<div class="modal-body">'+
+            ' '+res.email+' '+
+            '</div>'+
+            '<div class="modal-footer">'+
+            '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
+            '<button type="button" class="btn btn-primary">Save changes</button>'+
+            '</div></div></div></div>');
+
+            $('#modal_pedido'+id+'').modal('show');
+
+
+        } else{
+          alert(res.msg);
+        }
+      },
+      error: function(){
+        alert("Erro ao buscar pedido");
+      }
+
+    })
+
+
+
+  });
+
   $('.table_listar_data_table').DataTable({
     "language": {
       "sEmptyTable": "Nenhum registro encontrado",
@@ -80,8 +123,9 @@ $(document).ready( function () {
 
   $('#data_nascimento').mask('00/00/0000');
   $('#telefone').mask('(00) 0000-0000');
-  $('#valor').mask('000.000.000.000.000,00', {reverse: true});
+  $('#valor').mask('000.000.000.000.000,00', {reverse: false});
 
-  $('#cpf').mask('000.000.000-00', {reverse: true});
+  $('#cpf').mask('000.000.000-00', {reverse: false});
+  $('#cep_origem').mask('00000-000', {reverse: false});
 
 } );

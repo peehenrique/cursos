@@ -46,5 +46,55 @@ class Config extends CI_Controller {
     }
   }
 
+  public function pagseguro()
+  {
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+    $this->form_validation->set_rules('token', 'Token', 'required|trim');
+
+    if ($this->form_validation->run() == TRUE) {
+
+      $dados['email'] = $this->input->post('email');
+      $dados['token'] = $this->input->post('token');
+      $dados['cartao'] = $this->input->post('cartao');
+      $dados['boleto'] = $this->input->post('boleto');
+      $dados['transferencia'] = $this->input->post('transferencia');
+      $dados['data_atualizacao'] = dataDiaDb();
+
+      $this->config_model->doUpdatePagSeguro($dados);
+      redirect('admin/config/pagseguro', 'refresh');
+
+    } else{
+      $data['titulo'] = "Configuração do Pag Seguro";
+      $data['view'] = 'admin/config/pagseguro';
+      $data['query'] = $this->config_model->getConfigPagSeguro();
+
+      $this->load->view('admin/template/index', $data);
+    }
+  }
+
+  public function correio()
+  {
+
+    $this->form_validation->set_rules('cep_origem', 'CEP Origem', 'required|trim');
+
+    if ($this->form_validation->run() == TRUE) {
+
+      $dados['cep_origem'] = str_replace("-", '', $this->input->post('cep_origem'));
+      $dados['data_atualizacao'] = dataDiaDb();
+
+      $this->config_model->doUpdateCorreio($dados);
+      redirect('admin/config/correio', 'refresh');
+
+    } else{
+      $data['titulo'] = "Configuração Correio";
+      $data['view'] = 'admin/config/correio';
+      $data['query'] = $this->config_model->getConfigCorreio();
+
+      $this->load->view('admin/template/index', $data);
+    }
+
+
+
+  }
 
 }

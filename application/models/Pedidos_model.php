@@ -15,4 +15,11 @@ class Pedidos_model extends CI_Model{
   return $this->db->get('pedidos')->row();
   }
 
+  public function doUpdate($dados=NULL, $id_pedido=NULL)
+  {
+    if (is_array($dados)) {
+      $this->db->update('pedidos', $dados, ['id' => $id_pedido]);
+    }
+  }
+
 }

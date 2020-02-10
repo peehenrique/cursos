@@ -48,6 +48,18 @@ $(document).ready( function () {
 
     var id = $(this).attr('data-id-pedido');
 
+    var selectStatus = '<div class="form-group">'+
+    '<label class="col-sm-4 control-label">Mudar o status do pedido</label>'+
+    '<div class="col-sm-8">'+
+    '<select class="form-control" name="status">'+
+    '<option value="1">Aguardando Pagamento</option>'+
+    '<option value="2">Pagamento confirmado</option>'+
+    '<option value="3">Enviado</option>'+
+    '<option value="4">Cancelado</option>'+
+    '</select>'+
+    '</div>'+
+    '</div>';
+
     $.ajax({
       type: "GET",
       url: "http://localhost/CURSOS/PAG_SEGURO/loja_virtual/admin/pedidos/getPedido/"+ id + "",
@@ -55,22 +67,25 @@ $(document).ready( function () {
       success: function(res){
         if (res.erro == 0) {
 
-          $('.modal_dinamico').append('<div class="modal fade" id="modal_pedido'+id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">'+
+          $('.modal_dinamico').append('<div class="modal fade" data-backdrop="static" id="modal_pedido'+id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">'+
         '<div class="modal-dialog" role="document">'+
           '<div class="modal-content">'+
               '<div class="modal-header">'+
                 '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-              '<h4 class="modal-title" id="myModalLabel">Modal title</h4></div>'+
+              '<h4 class="modal-title" id="myModalLabel">Mudar status do pedido ['+res.id_pedido+']</h4></div>'+
             '<div class="modal-body">'+
-            ' '+res.email+' '+
+            '<p>Status Atual: <strong>'+res.status+'</strong></p>'+
+            selectStatus +
             '</div>'+
-            '<div class="modal-footer">'+
-            '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
-            '<button type="button" class="btn btn-primary">Save changes</button>'+
+            '<div class="modal-footer" style="margin-top:3em">'+
+            '<button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>'+
+            '<button type="button" class="btn btn-primary btn-atualizar-status-pedido" data-id-pedido="'+id+'">Atualizar</button>'+
             '</div></div></div></div>');
 
             $('#modal_pedido'+id+'').modal('show');
-
+            $('#modal_pedido'+id+'').on('hidden.bs.modal', function(e){
+              $(this).remove();
+            });
 
         } else{
           alert(res.msg);
@@ -82,6 +97,33 @@ $(document).ready( function () {
 
     })
 
+
+  });
+
+  $(document).on('click', '.btn-atualizar-status-pedido', function(){
+
+    var id_pedido = $(this).attr('data-id-pedido');
+    var status = $('[name="status"]').val();
+
+    $.ajax({
+      type: "POST",
+      url: "http://localhost/CURSOS/PAG_SEGURO/loja_virtual/admin/pedidos/mudarstatus/",
+      data: {input_status: status, input_id: id_pedido} ,
+      dataType: "json",
+      success: function(res){
+
+        if (res.erro == 0) {
+          location.reload();
+        } else{
+          alert("Erro ao mudar o status");
+        }
+
+      },
+      error: function(){
+        alert("Erro ao atualizar o status");
+      }
+
+    })
 
 
   });

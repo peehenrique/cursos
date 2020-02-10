@@ -105,6 +105,9 @@ $(document).ready( function () {
     var id_pedido = $(this).attr('data-id-pedido');
     var status = $('[name="status"]').val();
 
+    
+
+
     $.ajax({
       type: "POST",
       url: "http://localhost/CURSOS/PAG_SEGURO/loja_virtual/admin/pedidos/mudarstatus/",

@@ -3,11 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
-	public function index()
-	{
-		$this->load->model('loja_model', 'loja');
-		$data['produtos'] = $this->loja->getProdutos();
-		$this->load->view('welcome_message', $data);
-	}
+  public function __construct(){
+    parent::__construct();
+
+    if (!$this->ion_auth->logged_in())
+    {
+      redirect('admin/login');
+    }
+
+  }
+
+  public function index()
+  {
+    redirect('admin/produtos', 'refresh');
+  }
+
 
 }

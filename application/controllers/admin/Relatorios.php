@@ -36,7 +36,7 @@ class Relatorios extends CI_Controller{
     //     'data_cadastro <=' => $data_final
     //   ]);
     //   $this->view_relatorio($query);
-    // 
+    //
     // } else{
     //
     //   $data['titulo'] = "Relatorio de pedidos por periodo";

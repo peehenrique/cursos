@@ -75,6 +75,8 @@ class Produtos extends CI_Controller {
       $dadosProdutos['destaque'] = $this->input->post('destaque');
       $dadosProdutos['ativo'] = $this->input->post('ativo');
 
+      $dadosProdutos['meta_link'] = slug($this->input->post('nome_produto'));
+
       if ($this->input->post('id_marca')) {
         $dadosProdutos['id_marca'] = $this->input->post('id_marca');
       } else{

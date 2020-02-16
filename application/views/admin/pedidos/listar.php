@@ -49,22 +49,7 @@
               <td><?php echo $pedido->id; ?></td>
               <td><?php echo $pedido->nome; ?></td>
               <td><?php echo formataMoedaReal($pedido->total_pedido, 1); ?></td>
-              <td><?php
-              switch ($pedido->status) {
-                case 1:
-                echo "Aguardando Pagamento";
-                break;
-                case 2:
-                echo "Pagamento confirmado";
-                break;
-                case 3:
-                echo "Enviado";
-                break;
-                default:
-                echo "Cancelado";
-                break;
-              }
-              ?></td>
+              <td><?php echo $pedido->titulo_status; ?></td>
               <td class="text-right">
                 <button class="btn btn-primary btn-mudar-status-pedido" data-toggle="modal" data-id-pedido="<?php echo $pedido->id; ?>">Mudar Status</button>
                 <a href="<?php echo base_url('admin/pedidos/codigo_rastreio') ?>" class="btn btn-warning">Rastrear Pedido</a>
@@ -77,6 +62,8 @@
         </tbody>
 
       </table>
+
+
 
     </div>
   </div>

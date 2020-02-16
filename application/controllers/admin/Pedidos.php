@@ -39,25 +39,25 @@ class Pedidos extends CI_Controller{
       echo json_encode($retorno);
       exit;
     }
-
-    switch ($query->status) {
-      case 1:
-      $status = "Aguardando Pagamento";
-      break;
-      case 2:
-      $status = "Pagamento confirmado";
-      break;
-      case 3:
-      $status = "Enviado";
-      break;
-      default:
-      $status = "Cancelado";
-      break;
-    }
+    //
+    // switch ($query->status) {
+    //   case 1:
+    //   $status = "Aguardando Pagamento";
+    //   break;
+    //   case 2:
+    //   $status = "Pagamento confirmado";
+    //   break;
+    //   case 3:
+    //   $status = "Enviado";
+    //   break;
+    //   default:
+    //   $status = "Cancelado";
+    //   break;
+    // }
 
     $retorno['erro'] = 0;
     $retorno['id_pedido'] = $query->id;
-    $retorno['status'] = $status;
+    $retorno['status'] = $query->titulo_status;
 
     echo json_encode($retorno);
     exit;
@@ -69,7 +69,7 @@ class Pedidos extends CI_Controller{
 
       $id_pedido = $this->input->post('input_id');
 
-      $pedido['status'] = $this->input->post('input_status');
+      $pedido['id_status'] = $this->input->post('input_status');
       $pedido['ultima_atualizacao'] = dataDiaDb();
       $this->pedidos_model->doUpdate($pedido, $id_pedido);
 
@@ -107,7 +107,7 @@ class Pedidos extends CI_Controller{
 
       $data['view'] = 'admin/pedidos/imprimir';
       $this->load->view('admin/template/pedido_imprimir', $data);
-      
+
   }
 
 }

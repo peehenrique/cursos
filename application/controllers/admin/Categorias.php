@@ -56,6 +56,8 @@ class Categorias extends CI_Controller {
 
       $dadosCategorias['nome'] = $this->input->post('nome');
       $dadosCategorias['ativo'] = $this->input->post('ativo');
+      $dadosProdutos['meta_link'] = slug($this->input->post('nome'));
+
       if ($this->input->post('id_cat_pai')) {
         $dadosCategorias['id_cat_pai'] = $this->input->post('id_cat_pai');
       } else{
@@ -82,6 +84,12 @@ class Categorias extends CI_Controller {
   public function del($id_categoria=NULL)
   {
     if ($id_categoria) {
+
+      if ($this->categorias_model->getSubCategoria($id_categoria)) {
+        setMsg('msgCadastro', 'A categoria nao pode ser apagada', 'erro');
+        redirect('admin/categorias', 'refresh');
+      }
+
       $this->categorias_model->doDelete($id_categoria);
       redirect('admin/categorias', 'refresh');
 

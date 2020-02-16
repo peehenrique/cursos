@@ -20,7 +20,6 @@ class Categorias_model extends CI_Model{
     }
   }
 
-
   public function getCatPai()
   {
     $this->db->where('id_cat_pai', NULL);
@@ -73,5 +72,17 @@ class Categorias_model extends CI_Model{
     }
   }
 
-  
+  public function getSubCategoria($id=NULL)
+  {
+    if ($id) {
+      $this->db->where('id_cat_pai', $id);
+      $query = $this->db->get('categorias');
+      if ($query->num_rows() >= 1) {
+        return TRUE;
+      } else{
+        return FALSE;
+      }
+    }
+  }
+
 }

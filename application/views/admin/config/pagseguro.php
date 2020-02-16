@@ -77,18 +77,3 @@
     </div>
   </div>
 </section>
-
-
-  <form role="form" method="post" action="">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Mudar o status do pedido</label>
-      <div class="col-sm-10">
-        <select class="form-control" name="cartao">
-            <option value="1">Aguardando Pagamento</option>
-            <option value="2">Pagamento confirmado</option>
-            <option value="3">Enviado</option>
-            <option value="4">Cancelado</option>
-        </select>
-      </div>
-    </div>
-  </form>

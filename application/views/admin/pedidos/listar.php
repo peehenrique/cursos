@@ -13,7 +13,16 @@
     <div class="box-header with-border">
       <div class="row mb-2">
         <div class="col-md-12 text-left">
-          <a href="<?php echo base_url('admin/') ?>" class="btn btn-success">Relatorio</a>
+          <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Relatório <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Vendas diárias</a></li>
+              <li><a href="#">Vendas por período</a></li>
+              <li><a href="#">Produtos mais vendidos</a></li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -43,23 +52,23 @@
               <td><?php
               switch ($pedido->status) {
                 case 1:
-                  echo "Aguardando Pagamento";
-                  break;
+                echo "Aguardando Pagamento";
+                break;
                 case 2:
-                  echo "Pagamento confirmado";
-                  break;
+                echo "Pagamento confirmado";
+                break;
                 case 3:
-                  echo "Enviado";
-                  break;
+                echo "Enviado";
+                break;
                 default:
-                  echo "Cancelado";
-                  break;
+                echo "Cancelado";
+                break;
               }
-               ?></td>
+              ?></td>
               <td class="text-right">
                 <button class="btn btn-primary btn-mudar-status-pedido" data-toggle="modal" data-id-pedido="<?php echo $pedido->id; ?>">Mudar Status</button>
                 <a href="<?php echo base_url('admin/pedidos/codigo_rastreio') ?>" class="btn btn-warning">Rastrear Pedido</a>
-                <a href="<?php echo base_url('admin/pedidos/imprimir') ?>" class="btn btn-success">Imprimir Pedido</a>
+                <a href="<?php echo base_url('admin/pedidos/imprimir/'.$pedido->id.'') ?>" target="_blank" class="btn btn-success">Imprimir Pedido</a>
               </td>
             </tr>
 

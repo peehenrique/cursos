@@ -219,6 +219,19 @@
         <li><a href="<?php echo base_url('admin/clientes'); ?>"><i class="fa fa-th"></i> <span>Clientes</span></a></li>
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-table"></i> <span>Relatórios</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url('admin/relatorios/diario'); ?>"><i class="fa fa-circle-o"></i> Diário</a></li>
+            <li><a href="<?php echo base_url('admin/relatorios/periodo'); ?>"><i class="fa fa-circle-o"></i> Por periodo</a></li>
+            <li><a href="<?php echo base_url('admin/relatorios/mais_vendidos'); ?>"><i class="fa fa-circle-o"></i> Mais vendidos</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-table"></i> <span>Configurações</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

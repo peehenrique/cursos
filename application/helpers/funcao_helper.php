@@ -39,6 +39,16 @@ function dataDiaDb()
   return standard_date($formato, $hora);
 }
 
+function dataDb()
+{
+  date_default_timezone_set('America/Sao_Paulo');
+  date_default_timezone_get();
+  $stringdedata = "%Y-%m-%d";
+  $data = time();
+  $data = mdate($stringdedata, $data);
+  return $data;
+}
+
 function formataDataDb($data=NULL){
   if ($data) {
     $data = explode("/", $data);

@@ -30,16 +30,37 @@
 
     <script type="text/javascript">
 
+
+
     $(document).on('click', '.btn-teste-clicar', function(){
 
 
-      var teste_elemento = $('[name="valor-orcamento"]').val();
+      var valor_orcamento = $('[name=valor-orcamento]').val();
 
-      alert(teste_elemento);
 
+      $.ajax({
+        type: "POST",
+        url: "http://localhost/CURSOS/PAG_SEGURO/loja_virtual/admin/pedidos/mudarstatus/",
+        data: {input_status: status, input_id: id_pedido} ,
+        dataType: "json",
+        success: function(res){
+
+          if (res.erro == 0) {
+            location.reload();
+          } else{
+            alert("Erro ao mudar o status");
+          }
+        },
+
+        error: function(){
+          alert("Erro ao atualizar o status");
+        }
+
+      })
 
     });
 
+    });
 
   </script>
 

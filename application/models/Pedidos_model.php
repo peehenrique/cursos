@@ -22,4 +22,21 @@ class Pedidos_model extends CI_Model{
     }
   }
 
+  public function getDadosLoja()
+  {
+    $this->db->select('config.empresa, config.telefone, config.email');
+    $this->db->from('config');
+    $this->db->where('id', 1);
+    $this->db->limit(1);
+    return $this->db->get()->row();
+  }
+
+  public function getItens($id=NULL)
+  {
+    if ($id) {
+      $this->db->where('id_pedido', $id);
+      return $this->db->get('pedidos_item')->result();
+    }
+  }
+
 }

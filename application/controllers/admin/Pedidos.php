@@ -86,4 +86,28 @@ class Pedidos extends CI_Controller{
     }
   }
 
+  public function imprimir($id=NULL)
+  {
+
+      if (!$id) {
+        echo "Precisa enviar um ID para poder imprimir";
+        exit;
+      }
+
+      $query = $this->pedidos_model->getPedidoId($id);
+      if (!$query) {
+        echo "Erro ao tentar imprimir o ID enviado";
+        exit;
+      }
+
+      $data['titulo'] = 'Imprimir pedido [#'.$query->id.']';
+      $data['pedido'] = $query;
+      $data['config'] = $this->pedidos_model->getDadosLoja();
+      $data['itens'] = $this->pedidos_model->getItens($query->id);
+
+      $data['view'] = 'admin/pedidos/imprimir';
+      $this->load->view('admin/template/pedido_imprimir', $data);
+      
+  }
+
 }

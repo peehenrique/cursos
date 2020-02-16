@@ -97,16 +97,12 @@ $(document).ready( function () {
 
     })
 
-
   });
 
   $(document).on('click', '.btn-atualizar-status-pedido', function(){
 
     var id_pedido = $(this).attr('data-id-pedido');
     var status = $('[name="status"]').val();
-
-    
-
 
     $.ajax({
       type: "POST",

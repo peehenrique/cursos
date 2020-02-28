@@ -56,7 +56,7 @@ class Categorias extends CI_Controller {
 
       $dadosCategorias['nome'] = $this->input->post('nome');
       $dadosCategorias['ativo'] = $this->input->post('ativo');
-      $dadosProdutos['meta_link'] = slug($this->input->post('nome'));
+      $dadosCategorias['meta_link'] = slug($this->input->post('nome'));
 
       if ($this->input->post('id_cat_pai')) {
         $dadosCategorias['id_cat_pai'] = $this->input->post('id_cat_pai');

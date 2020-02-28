@@ -58,3 +58,8 @@ $route['admin'] = 'admin/principal';
 $route['admin/(:any)'] = 'admin/$1';
 $route['admin/(:any)/(:any)'] = 'admin/$1/$2';
 $route['admin/(:any)/(:any)/(:any)'] = 'admin/$1/$2/$3';
+
+//ROTAS PAGINA PRODUTO
+$route['produto/(:any)'] = 'produto/index/$1';
+//ROTAS PRODUTOS CATEGORIAS
+$route['categoria/(:any)'] = 'categoria/index/$1';

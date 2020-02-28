@@ -52,6 +52,7 @@ class Marcas extends CI_Controller {
       if ($this->form_validation->run() == TRUE) {
 
         $dadosCategorias['nome_marca'] = $this->input->post('nome_marca');
+        $dadosCategorias['meta_link'] = slug($this->input->post('nome_marca'));
         $dadosCategorias['ativo'] = $this->input->post('ativo');
 
         if ($this->input->post('id_marca')) {

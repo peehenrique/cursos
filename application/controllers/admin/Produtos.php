@@ -114,6 +114,7 @@ class Produtos extends CI_Controller {
       for ($i=0; $i < $t_foto ; $i++) {
         $foto['id_produto'] = $id_produto;
         $foto['foto'] = $foto_produto[$i];
+        $foto['principal'] = ($i == 0 ? 1 : 0);
         $this->produtos_model->doInsertFoto($foto);
       }
 

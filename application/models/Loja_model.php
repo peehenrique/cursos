@@ -30,11 +30,11 @@ class Loja_model extends CI_Model{
       $this->db->select('produtos.nome_produto, produtos.valor, produtos.meta_link, produtos_fotos.foto');
       $this->db->from('produtos');
       $this->db->join('produtos_fotos', 'produtos_fotos.id_produto = produtos.id', 'left');
-      $this->db->where(['produtos.ativo' => 1, 'produtos.destaque' => 1]);
+      $this->db->where(['produtos.ativo' => 1, 'produtos.destaque' => 1, 'produtos_fotos.principal' => 1]);
       $this->db->limit($total_destaque);
       $this->db->order_by('produtos.id', 'RANDOM');
       // $this->db->group_by('produtos.id');
-      $this->db->distinct();
+      // $this->db->distinct();
       return $this->db->get()->result();
     }
   }

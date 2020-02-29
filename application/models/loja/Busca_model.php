@@ -10,6 +10,8 @@ class Busca_model extends CI_Model{
       $this->db->from('produtos');
       $this->db->where(['produtos.ativo' => 1]);
       $this->db->like('produtos.nome_produto', $query, 'both');
+      $this->db->or_like('produtos.cod_produto', $query, 'both');
+      $this->db->or_like('produtos.valor', $query, 'both');
       return $this->db->get()->result();
     }
   }

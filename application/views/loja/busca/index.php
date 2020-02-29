@@ -4,7 +4,7 @@
     <ul>
       <?php foreach ($produtos as $produto): ?>
         <li> <a href="<?php echo base_url('produto/'.$produto->meta_link); ?>">
-          <?php echo $produto->nome_produto ?></a>
+          <?php echo $produto->nome_produto . ' - ' . $produto->cod_produto . ' - ' . $produto->valor ?></a>
         </li>
       <?php endforeach; ?>
 

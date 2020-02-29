@@ -8,7 +8,7 @@ class Produto extends CI_Controller {
 
     $this->load->model('loja_model');
     $this->load->model('loja/produto_model');
-
+		
   }
 
 	public function index($meta_link=NULL)

@@ -35,5 +35,22 @@ class Marca extends CI_Controller {
 		$this->load->view('loja/template/index', $data);
 	}
 
+	public function grandes_marcas(){
+		// DADOS DA LOJA
+		$query = $this->loja_model->getDadosLoja();
+
+		// MENU TOPO
+		$data['categorias'] = $this->loja_model->getCategorias();
+
+		//INFORMACOES DA PAGINA
+		$data['titulo'] = 'listar marcas';
+		$data['dados_loja'] = $query;
+		$data['view'] = 'loja/marca/listar_marcas';
+    $data['marcas'] = $this->marca_model->getMarcasListar();
+
+		// CARREGAR TEMPLATE
+		$this->load->view('loja/template/index', $data);
+	}
+
 
 }

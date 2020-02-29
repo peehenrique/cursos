@@ -30,4 +30,10 @@ class Marca_model extends CI_Model{
     return $this->db->get('produtos_fotos')->result();
   }
 
+  public function getMarcasListar()
+  {
+    $this->db->where('ativo', 1);
+    return $this->db->get('marca')->result();
+  }
+
 }

@@ -63,7 +63,7 @@
             <button type="submit" class="btn btn-default">Buscar produto</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Link</a></li>
+            <li><a href="<?php echo base_url('listar-marcas') ?>">Listar marcas</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">

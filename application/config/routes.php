@@ -65,3 +65,4 @@ $route['produto/(:any)'] = 'produto/index/$1';
 $route['categoria/(:any)'] = 'categoria/index/$1';
 //ROTAS PRODUTOS MARCAS
 $route['marca/(:any)'] = 'marca/index/$1';
+$route['listar-marcas'] = 'marca/grandes_marcas';

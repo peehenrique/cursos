@@ -56,9 +56,9 @@
             <?php endforeach; ?>
 
           </ul>
-          <form class="navbar-form navbar-left">
+          <form class="navbar-form navbar-left" action="<?php echo base_url('busca') ?>" method="post">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Buscar produto">
+              <input type="text" name="query_busca" id="query_busca" class="form-control" placeholder="Buscar produto">
             </div>
             <button type="submit" class="btn btn-default">Buscar produto</button>
           </form>

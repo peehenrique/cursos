@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8888/cursos/pagseguro/';
+$config['base_url'] = 'http://localhost/CURSOS/PAG_SEGURO/loja_virtual/';
+// $config['base_url'] = 'http://localhost:8888/cursos/pagseguro/';
 
 /*
 |--------------------------------------------------------------------------

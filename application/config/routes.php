@@ -63,3 +63,5 @@ $route['admin/(:any)/(:any)/(:any)'] = 'admin/$1/$2/$3';
 $route['produto/(:any)'] = 'produto/index/$1';
 //ROTAS PRODUTOS CATEGORIAS
 $route['categoria/(:any)'] = 'categoria/index/$1';
+//ROTAS PRODUTOS MARCAS
+$route['marca/(:any)'] = 'marca/index/$1';

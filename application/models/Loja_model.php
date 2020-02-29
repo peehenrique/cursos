@@ -33,7 +33,8 @@ class Loja_model extends CI_Model{
       $this->db->where(['produtos.ativo' => 1, 'produtos.destaque' => 1]);
       $this->db->limit($total_destaque);
       $this->db->order_by('produtos.id', 'RANDOM');
-      $this->db->group_by('produtos.id');
+      // $this->db->group_by('produtos.id');
+      $this->db->distinct();
       return $this->db->get()->result();
     }
   }

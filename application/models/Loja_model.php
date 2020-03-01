@@ -27,7 +27,7 @@ class Loja_model extends CI_Model{
   public function getProdutosDestaque($total_destaque=NULL)
   {
     if ($total_destaque) {
-      $this->db->select('produtos.nome_produto, produtos.valor, produtos.meta_link, produtos_fotos.foto');
+      $this->db->select('produtos.id, produtos.nome_produto, produtos.valor, produtos.meta_link, produtos_fotos.foto');
       $this->db->from('produtos');
       $this->db->join('produtos_fotos', 'produtos_fotos.id_produto = produtos.id', 'left');
       $this->db->where(['produtos.ativo' => 1, 'produtos.destaque' => 1, 'produtos_fotos.principal' => 1]);

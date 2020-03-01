@@ -49,7 +49,8 @@
         <div class="caption">
           <h3><?php echo $destaque->nome_produto ?></h3>
           <p><?php echo formataMoedaReal($destaque->valor, 1) ?></p>
-          <p><a href="<?php echo base_url('produto/' . $destaque->meta_link .'') ?>" class="btn btn-primary" role="button">Ver produto</a> <a href="#" class="btn btn-default" role="button">Add carrinho</a></p>
+          <p><a href="<?php echo base_url('produto/' . $destaque->meta_link .'') ?>" class="btn btn-primary" role="button">Ver produto</a>
+            <a href="<?php echo base_url('carrinho/add/'. $destaque->id) ?>" class="btn btn-default" role="button">Add carrinho</a></p>
         </div>
       </div>
     </div>

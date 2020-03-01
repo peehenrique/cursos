@@ -11,7 +11,7 @@ class Busca extends CI_Controller {
 
   }
 
-  public function index($meta_link=NULL)
+  public function index()
   {
 
     $this->form_validation->set_rules('query_busca', 'Buscar', 'required|trim');

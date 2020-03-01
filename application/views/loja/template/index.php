@@ -65,10 +65,10 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<?php echo base_url('listar-marcas') ?>">Listar marcas</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Carrinho <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
+                <li><a href="<?php echo base_url('carrinho'); ?>">Listar carrinho</a></li>
+                <li><a href="<?php echo base_url('carrinho/limpar'); ?>">Limpar</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Separated link</a></li>
@@ -80,12 +80,10 @@
     </nav>
   </header>
 
-
-
-
   <div class="row mt-3">
 
     <div class="container">
+
       <?php
       if (isset($view)) {
         $this->load->view($view);
@@ -94,8 +92,6 @@
     </div>
 
   </div>
-
-
 
   <footer>
 

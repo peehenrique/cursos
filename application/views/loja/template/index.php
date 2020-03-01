@@ -13,6 +13,11 @@
   <link rel="stylesheet" href="<?php echo base_url('/public/dist/font-awesome/css/font-awesome.min.css'); ?>">
 
   <link rel="stylesheet" href="<?php echo base_url('/public/css/loja.css'); ?>">
+
+  <script type="text/javascript">
+    var url_loja = "<?php echo base_url()?>";
+  </script>
+
 </head>
 
 <body>
@@ -65,13 +70,14 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<?php echo base_url('listar-marcas') ?>">Listar marcas</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Carrinho <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <?php echo $this->carrinhocompra->totalItem() ?>
+                Carrinho <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url('carrinho'); ?>">Listar carrinho</a></li>
-                <li><a href="<?php echo base_url('carrinho/limpar'); ?>">Limpar</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li><a href="<?php echo base_url('carrinho'); ?>">Ver carrinho</a></li>
+                <li><a href="<?php echo base_url('carrinho/limpar'); ?>">Limpar carrinho</a> </li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li><a href="<?php echo base_url('checkout'); ?>">Finalizar compra</a></li>
               </ul>
             </li>
           </ul>
@@ -101,5 +107,8 @@
   <script src="<?php echo base_url('/public/js/jquery.min.js'); ?>"></script>
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url('/public/js/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
+
+  <script src="<?php echo base_url('/public/js/app_loja.js'); ?>"></script>
+
 </body>
 </html>

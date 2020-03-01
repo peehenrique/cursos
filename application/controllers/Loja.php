@@ -7,6 +7,7 @@ class Loja extends CI_Controller {
     parent::__construct();
 
     $this->load->model('loja_model');
+		$this->load->library('carrinhocompra');
 
   }
 

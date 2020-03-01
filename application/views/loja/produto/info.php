@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="row msg-add-carrinho hide">
+    <div class="col-md-12 msg-carrinho-alert"></div>
+  </div>
   <div class="row">
 
     <div class="col-md-6">
@@ -40,7 +43,7 @@
       <?php if ($produto->controlar_estoque == 1): ?>
         <p>Quantidade estoque: <?php echo $produto->estoque ?></p>
       <?php endif; ?>
-      <a href="#" class="btn btn-danger">COMPRAR PRODUTO</a>
+      <a href="javascript:void(0)" class="btn btn-danger btn-add-produto" data-id="<?php echo $produto->id ?>">COMPRAR PRODUTO</a>
 
       <hr>
       <form class="form-inline">

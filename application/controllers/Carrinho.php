@@ -8,8 +8,6 @@ class Carrinho extends CI_Controller {
 
     $this->load->model('loja_model');
     $this->load->library('carrinhocompra');
-
-
   }
 
   public function index()
@@ -21,6 +19,7 @@ class Carrinho extends CI_Controller {
     $data['dados_loja'] = $query;
     $data['categorias'] = $this->loja_model->getCategorias();
     $data['view'] = 'loja/carrinho/index';
+    $data['carrinho'] = $this->carrinhocompra->listarProdutos();
 
     $this->load->view('loja/template/index', $data);
   }
@@ -29,6 +28,18 @@ class Carrinho extends CI_Controller {
   {
     $this->carrinhocompra->add($id, 1);
     redirect('/', 'refresh');
+  }
+
+  public function addProduto()
+  {
+    if ($this->input->post('id')) {
+      $id = $this->input->post('id');
+      $qtd = 1;
+      $this->carrinhocompra->add($id, $qtd);
+
+      $json = ['erro' => 0, 'msg' => 'Produto adicionado ao carrinho'];
+      echo json_encode($json);
+    }
   }
 
   public function limpar()

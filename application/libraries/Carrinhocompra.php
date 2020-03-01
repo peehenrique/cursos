@@ -61,7 +61,7 @@ class Carrinhocompra{
       $retorno[$indice]['nome'] = $query->nome_produto;
       $retorno[$indice]['valor'] = $query->valor;
       $retorno[$indice]['qtd'] = $qtd;
-      $retorno[$indice]['valor'] = number_format( $qtd * $query->valor, 2, '.', '');
+      $retorno[$indice]['subtotal'] = number_format( $qtd * $query->valor, 2, '.', '');
       $retorno[$indice]['peso'] = $query->peso;
       $retorno[$indice]['altura'] = $query->altura;
       $retorno[$indice]['largura'] = $query->largura;
@@ -77,19 +77,33 @@ class Carrinhocompra{
   //TOTAL DO CARRINHO
   public function total()
   {
+    $produto = $this->listarProdutos();
+    $total = 0;
+    foreach ($produto as $indice => $linha) {
+      $total += $linha['subtotal'];
+    }
 
+    return $total;
   }
 
   //PESO TOTAL PRODUTOS
   public function totalPeso()
   {
+    $produto = $this->listarProdutos();
+    $total = 0;
 
+    foreach ($produto as $indice => $linha) {
+      $total += $linha['peso'];
+    }
+
+    return $total;
   }
 
   //TOTAL DE ITEM
   public function totalItem()
   {
-
+    $produto = $this->listarProdutos();
+    return count($produto);
   }
 
 }

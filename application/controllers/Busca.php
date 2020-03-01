@@ -8,7 +8,7 @@ class Busca extends CI_Controller {
 
     $this->load->model('loja_model');
     $this->load->model('loja/busca_model');
-
+    $this->load->library('carrinhocompra');
   }
 
   public function index()

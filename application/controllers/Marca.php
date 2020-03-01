@@ -8,7 +8,7 @@ class Marca extends CI_Controller {
 
     $this->load->model('loja_model');
     $this->load->model('loja/marca_model');
-
+		$this->load->library('carrinhocompra');
   }
 
 	public function index($meta_link=NULL)

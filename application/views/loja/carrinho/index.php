@@ -11,6 +11,7 @@
           <th>Valor</th>
           <th>Quantidade</th>
           <th>SubTotal</th>
+          <th>Opcoes</th>
         </thead>
         <tbody>
 
@@ -19,8 +20,12 @@
               <td><?php echo $linha['id'] ?></td>
               <td><?php echo $linha['nome'] ?></td>
               <td><?php echo formataMoedaReal($linha['valor'], 1) ?></td>
-              <td><?php echo $linha['qtd'] ?></td>
+              <td>
+                <input type="tel" name="carrinho_qtd" id="carrinho_qtd_<?php echo $linha['id'] ?>" value="<?php echo $linha['qtd'] ?>">
+                <a href="javascript:void(0)" class="btn btn-warning btn-atualizar-qtd-carrinho" data-id="<?php echo $linha['id'] ?>"> <i class="fa fa-undo"></i> </a>
+              </td>
               <td><?php echo formataMoedaReal($linha['subtotal'], 1) ?></td>
+              <td> <a href="javascript:void(0)" class="btn btn-danger remover-item-carrinho" data-id="<?php echo $linha['id'] ?>">X</a> </td>
 
             </tr>
           <?php endforeach; ?>
@@ -29,7 +34,7 @@
         <tfoot>
           <tr>
             <td colspan="4" class="text-right">TOTAL CARRINHO</td>
-            <td class="total-carrinho"> <?php echo formataMoedaReal($this->carrinhocompra->total()); ?> </td>
+            <td class="total-carrinho"> <?php echo formataMoedaReal($this->carrinhocompra->total(), 1); ?> </td>
           </tr>
           <tr>
             <td colspan="4" class="text-right">TOTAL PESO</td>
@@ -38,7 +43,7 @@
 
         </tfoot>
       </table>
-      
+
     </div>
 
   </div>

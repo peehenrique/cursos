@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="<?php echo base_url('/public/css/loja.css'); ?>">
 
   <script type="text/javascript">
-    var url_loja = "<?php echo base_url()?>";
+  var url_loja = "<?php echo base_url()?>";
   </script>
 
 </head>
@@ -71,44 +71,46 @@
             <li><a href="<?php echo base_url('listar-marcas') ?>">Listar marcas</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <?php echo $this->carrinhocompra->totalItem() ?>
+                <span class="total-carrinho-menu">
+                  <?php echo $this->carrinhocompra->totalItem() ?>
+                </span>
                 Carrinho <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url('carrinho'); ?>">Ver carrinho</a></li>
-                <li><a href="<?php echo base_url('carrinho/limpar'); ?>">Limpar carrinho</a> </li>
-                <li role="separator" class="divider"></li>
-                <li><a href="<?php echo base_url('checkout'); ?>">Finalizar compra</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-  </header>
+                <ul class="dropdown-menu">
+                  <li><a href="<?php echo base_url('carrinho'); ?>">Ver carrinho</a></li>
+                  <li><a href="javascript:void(0)" class="btn-limpar-carrinho">Limpar carrinho</a> </li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="<?php echo base_url('checkout'); ?>">Finalizar compra</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    </header>
 
-  <div class="row mt-3">
+    <div class="row mt-3">
 
-    <div class="container">
+      <div class="container">
 
-      <?php
-      if (isset($view)) {
-        $this->load->view($view);
-      }
-      ?>
+        <?php
+        if (isset($view)) {
+          $this->load->view($view);
+        }
+        ?>
+      </div>
+
     </div>
 
-  </div>
+    <footer>
 
-  <footer>
+    </footer>
 
-  </footer>
+    <!-- jQuery 3 -->
+    <script src="<?php echo base_url('/public/js/jquery.min.js'); ?>"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="<?php echo base_url('/public/js/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
 
-  <!-- jQuery 3 -->
-  <script src="<?php echo base_url('/public/js/jquery.min.js'); ?>"></script>
-  <!-- Bootstrap 3.3.7 -->
-  <script src="<?php echo base_url('/public/js/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo base_url('/public/js/app_loja.js'); ?>"></script>
 
-  <script src="<?php echo base_url('/public/js/app_loja.js'); ?>"></script>
-
-</body>
-</html>
+  </body>
+  </html>

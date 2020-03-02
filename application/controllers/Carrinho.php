@@ -37,27 +37,49 @@ class Carrinho extends CI_Controller {
       $qtd = 1;
       $this->carrinhocompra->add($id, $qtd);
 
-      $json = ['erro' => 0, 'msg' => 'Produto adicionado ao carrinho'];
+      $json = ['erro' => 0, 'msg' => 'Produto adicionado ao carrinho', 'itens' => $this->carrinhocompra->totalItem()];
       echo json_encode($json);
     }
   }
 
   public function limpar()
   {
-    $this->carrinhocompra->limpa();
-    redirect('/', 'refresh');
+
+    if ($this->input->post('limpar') == 'true') {
+      $this->carrinhocompra->limpa();
+      $json = ['erro' => 0];
+      echo json_encode($json);
+    }
   }
 
   public function alterar()
   {
-    $this->carrinhocompra->altera(42, 5);
+    if ($this->input->post('id') && $this->input->post('qtd')) {
+      $id = $this->input->post('id');
+      $qtd = $this->input->post('qtd');
+      
+      $this->carrinhocompra->altera($id, $qtd);
+      $json = ['erro' => 0];
+      echo json_encode($json);
+    }
   }
 
   public function apagar_item()
   {
-    $this->carrinhocompra->apaga(43);
+    if ($this->input->post('id')) {
+      $id = $this->input->post('id');
+      $this->carrinhocompra->apaga($id);
+
+      $json = ['erro' => 0];
+      echo json_encode($json);
+    }
+
   }
 
-
+  public function getCarrinhoTopo()
+  {
+    $json = ['erro' => 0, 'itens' => $this->carrinhocompra->totalItem()];
+    echo json_encode($json);
+  }
 
 }

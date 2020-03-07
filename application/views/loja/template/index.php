@@ -110,6 +110,8 @@
     <!-- Bootstrap 3.3.7 -->
     <script src="<?php echo base_url('/public/js/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
 
+    <script src="<?php echo base_url('/public/dist/jquery-mask/dist/jquery.mask.min.js'); ?>"></script>
+
     <script src="<?php echo base_url('/public/js/app_loja.js'); ?>"></script>
 
   </body>

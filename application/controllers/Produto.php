@@ -38,4 +38,20 @@ class Produto extends CI_Controller {
 		$this->load->view('loja/template/index', $data);
 	}
 
+
+	public function calcularFrete()
+	{
+		$cod_servico = ""; /* codigo do servico desejado */
+    $cep_origem = "";  /* cep de origem, apenas numeros */
+    $cep_destino = ""; /* cep de destino, apenas numeros */
+    $peso = "";        /* valor dado em Kg incluindo a embalagem. 0.1, 0.3, 1, 2 ,3 , 4 */
+    $altur = "";      /* altura do produto em cm incluindo a embalagem */
+    $largura = "";   /* altura do produto em cm incluindo a embalagem */
+    $comprimento = ""; /* comprimento do produto incluindo embalagem em cm */
+    $valor_declarado = ""; /* indicar 0 caso nao queira o valor declarado */
+		$cod_servico = ""; /* codigo do servico, pac ou sedex */
+
+		$correios = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=&sDsSenha=&sCepOrigem=".$cep_origem."&sCepDestino=".$cep_destino."&nVlPeso=".$peso."&nCdFormato=1&nVlComprimento=".$comprimento."&nVlAltura=".$altura."&nVlLargura=".$largura."&sCdMaoPropria=n&nVlValorDeclarado=".$valor_declarado."&sCdAvisoRecebimento=n&nCdServico=".$cod_servico."&nVlDiametro=0&StrRetorno=xml";
+	}
+
 }

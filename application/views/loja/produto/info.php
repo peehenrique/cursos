@@ -9,6 +9,7 @@
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
         <div class="carousel-inner" role="listbox">
+          <input type="hidden" id="id_produto" name="" value="<?php echo $produto->id ?>">
 
           <?php
           $c = 0;

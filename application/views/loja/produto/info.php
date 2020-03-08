@@ -49,10 +49,12 @@
       <hr>
       <form class="form-inline">
         <div class="form-group">
-          <input type="tel" class="form-control" id="cep-calculo-produto" placeholder="SEU CEP AQUI">
+          <input type="tel" class="form-control" id="cep" name="cep" placeholder="SEU CEP AQUI">
         </div>
         <button type="button" class="btn btn-success btn-calcular-frete-produto">CALCULAR FRETE</button>
       </form>
+
+      <div class="retorno_frete hide" style="margin-top:1em;"></div>
     </div>
 
   </div>

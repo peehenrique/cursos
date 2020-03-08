@@ -1,29 +1,82 @@
 var App = function(){
 
-  var calcularFreteProduto = function(){
-    $(".btn-calcular-frete-produto").on('click', function(){
+  var selecionaValorFreteCarrinho = function(){
+    $('[name="frete_carrinho"]').on('click', function(){
+      var valor = $(this).val();
+      var total_carrinho = $(this).attr('data-total-carrinho');
 
-      var id_produto = $("#id_produto").val();
-      var cep_produto = $("#cep-calculo-produto").val();
+      $('.linha-total-frete-carrinho').removeClass("hide");
+      $('.total-carrinho-frete').html("R$ "+valor);
+      $('.total-carrinho').html(total_carrinho);
+
+    });
+  }
+
+  var calcularFreteCarrinho = function(){
+    $(".btn-calcular-frete-carrinho").on('click', function(){
+
+      var cep_produto = $("#cep").val();
 
       if ( !cep_produto) {
         alert("Voce precisa preencher os dados");
-        $("#cep-calculo-produto").focus();
+        $("#cep").focus();
         return false;
       }
 
+      $('.retorno_frete').removeClass('hide');
+      $('.retorno_frete').html('<div>Calculando frete...</div>');
+
       $.ajax({
         type: 'post',
-        url: url_loja +'ajax/calcularfrete',
-        data: {id:id_produto},
+        url: url_loja +'carrinho/calculaFrete',
+        data: {cep:cep_produto},
         dataType: 'JSON'
       }).then (function(res){
 
         if (res.erro == 0) {
-          // location.reload();
-          $(location).attr('href', url_loja+'carrinho');
-        } else{
 
+          $('.retorno_frete').html(res.valor_frete);
+          selecionaValorFreteCarrinho();
+
+        } else{
+          $('.retorno_frete').html(res.msg);
+        }
+
+      }, function(){
+        alert('Erro buscar o cep');
+      });
+
+    });
+  }
+
+  var calcularFreteProduto = function(){
+    $(".btn-calcular-frete-produto").on('click', function(){
+
+      var id_produto = $("#id_produto").val();
+      var cep_produto = $("#cep").val();
+
+      if ( !cep_produto) {
+        alert("Voce precisa preencher os dados");
+        $("#cep").focus();
+        return false;
+      }
+
+      $('.retorno_frete').removeClass('hide');
+      $('.retorno_frete').html('<div>Calculando frete...</div>');
+
+      $.ajax({
+        type: 'post',
+        url: url_loja +'ajax/calcularfrete',
+        data: {id:id_produto, cep:cep_produto},
+        dataType: 'JSON'
+      }).then (function(res){
+
+        if (res.erro == 0) {
+
+          $('.retorno_frete').html(res.valor_frete);
+
+        } else{
+          $('.retorno_frete').html(res.msg);
         }
 
       }, function(){
@@ -34,7 +87,7 @@ var App = function(){
   }
 
   var mascaraForm = function(){
-    $('#cep-calculo-produto').mask('00000-000', {reverse: true});
+    $('#cep').mask('00000-000', {reverse: true});
   }
 
   var atualizarQtdCarrinho = function(){
@@ -172,6 +225,7 @@ var App = function(){
       atualizarQtdCarrinho();
       mascaraForm();
       calcularFreteProduto();
+      calcularFreteCarrinho();
     }
   }
 

@@ -33,13 +33,21 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="4" class="text-right">TOTAL CARRINHO</td>
-            <td class="total-carrinho"> <?php echo formataMoedaReal($this->carrinhocompra->total(), 1); ?> </td>
+            <td colspan="4" class="text-right">TOTAL PRODUTOS</td>
+            <td> <?php echo formataMoedaReal($this->carrinhocompra->total(), 1); ?> </td>
+          </tr>
+          <tr class="linha-total-frete-carrinho hide">
+            <td colspan="4" class="text-right">TOTAL FRETE</td>
+            <td class="total-carrinho-frete"></td>
           </tr>
           <tr>
+            <td colspan="4" class="text-right">TOTAL DA COMPRA</td>
+            <td class="total-carrinho"> <?php echo formataMoedaReal($this->carrinhocompra->total(), 1); ?> </td>
+          </tr>
+          <!-- <tr>
             <td colspan="4" class="text-right">TOTAL PESO</td>
             <td class="total-carrinho"> <?php echo $this->carrinhocompra->totalPeso(); ?> </td>
-          </tr>
+          </tr> -->
 
         </tfoot>
       </table>
@@ -53,15 +61,13 @@
     <div class="col-md-6">
       <form class="form-inline" action="index.html" method="post">
         <div class="form-group">
-          <input type="text" class="form-control" id="cep-calculo-produto" placeholder="Seu CEP aqui">
+          <input type="text" class="form-control" id="cep" name="cep" placeholder="Seu CEP aqui">
         </div>
-        <button type="button" class="btn btn-sucess">
+        <button type="button" class="btn btn-sucess btn-calcular-frete-carrinho">
           Calcular frete
         </button>
       </form>
-      <div >
-        <p>R$ VALOR DO FRETE</p>
-      </div>
+      <div class="retorno_frete hide" style="margin-top:1em;"></div>
     </div>
 
     <div class="col-md-6 text-right">

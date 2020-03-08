@@ -11,4 +11,18 @@ class Ajax_model extends CI_Model{
     return $query->row();
   }
 
+  public function getProduto($id=NULL)
+  {
+    if ($id) {
+      $this->db->select('produtos.id,produtos.peso,produtos.altura,produtos.largura,produtos.comprimento');
+      $this->db->from('produtos');
+      $this->db->where(['id' => $id, 'ativo' => 1]);
+      $this->db->limit(1);
+      return $this->db->get()->row();
+    } else{
+      return false;
+    }
+
+  }
+
 }

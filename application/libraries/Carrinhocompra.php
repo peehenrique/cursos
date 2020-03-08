@@ -63,9 +63,6 @@ class Carrinhocompra{
       $retorno[$indice]['qtd'] = $qtd;
       $retorno[$indice]['subtotal'] = number_format( $qtd * $query->valor, 2, '.', '');
       $retorno[$indice]['peso'] = $query->peso;
-      $retorno[$indice]['altura'] = $query->altura;
-      $retorno[$indice]['largura'] = $query->largura;
-      $retorno[$indice]['comprimento'] = $query->comprimento;
 
       $indice++;
     }
@@ -93,7 +90,7 @@ class Carrinhocompra{
     $total = 0;
 
     foreach ($produto as $indice => $linha) {
-      $total += $linha['peso'];
+      $total += $linha['peso'] * $linha['qtd'];
     }
 
     return $total;
@@ -104,6 +101,55 @@ class Carrinhocompra{
   {
     $produto = $this->listarProdutos();
     return count($produto);
+  }
+
+  //PEGAR O MAIOR PRODUTO
+  public function getMaiorProduto()
+  {
+    $produto = $this->listarDimensao();
+    $maior = NULL;
+    $item = [];
+
+    foreach ($produto as $indice => $linha) {
+      if ($maior == NULL) {
+        $maior = $linha['dimensao'];
+        $item = $linha;
+      } else{
+        if ($linha['dimensao'] > $maior) {
+          $maior = $linha['dimensao'];
+          $item = $linha;
+        }
+      }
+    }
+
+    return $item;
+
+  }
+
+
+  //LISTAR DIMENSAO DOS PRODUTOS PEGAR PRODUTO COM CAIXA MAIOR
+  public function listarDimensao()
+  {
+    $CI =& get_instance();
+    $CI->load->model('loja/carrinho_model');
+
+    $retorno = [];
+    $indice = 0;
+
+    foreach ($_SESSION['carrinho'] as $id => $qtd) {
+      $query = $CI->carrinho_model->getProdutoDimensao($id);
+
+      $retorno[$indice]['id'] = $query->id;
+      $retorno[$indice]['altura'] = $query->altura;
+      $retorno[$indice]['largura'] = $query->largura;
+      $retorno[$indice]['comprimento'] = $query->comprimento;
+      $retorno[$indice]['dimensao'] = $query->altura + $query->largura + $query->comprimento;
+
+      $indice++;
+    }
+
+    return $retorno;
+
   }
 
 }

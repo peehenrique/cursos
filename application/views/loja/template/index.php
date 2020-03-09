@@ -114,5 +114,7 @@
 
     <script src="<?php echo base_url('/public/js/app_loja.js'); ?>"></script>
 
+    <script src="<?php echo base_url('/public/js/checkout.js'); ?>"></script>
+
   </body>
   </html>

@@ -3,7 +3,7 @@
     <form class="" action="index.html" method="post" accept-charset="utf-8">
 
       <div class="col-md-4">
-        <h2>Comprador</h2>
+        <h2><i class="fa fa-users" aria-hidden="true"></i> Comprador</h2>
         <p>Ja tem cadastro, <a href="<?php echo base_url('checkout/login') ?>">clique aqui para logar</a></p>
 
 
@@ -32,16 +32,21 @@
 
       </div>
       <div class="col-md-4">
-        <h2>Envio</h2>
+        <h2><i class="fa fa-paper-plane" aria-hidden="true"></i> Envio</h2>
 
         <div class="form-group">
           <label for="cep">CEP</label>
-          <input type="text" class="form-control" name="cep" id="cep" placeholder="CEP">
+          <div class="input-group">
+            <input type="text" class="form-control" name="cep" id="cep" placeholder="CEP">
+            <span class="input-group-btn">
+              <button class="btn btn-success btn-calcular-cep" type="button">Calcular</button>
+            </span>
+          </div>
         </div>
 
         <div class="form-group">
           <label for="endereco">Endereco</label>
-          <input type="text" class="form-control" name="endereco" id="endereco" placeholder="Endereco">
+          <input type="text" class="form-control" name="endereco" id="endereco" placeholder="Endereco" disabled>
         </div>
 
         <div class="form-group">
@@ -51,23 +56,23 @@
 
         <div class="form-group">
           <label for="cc_numero">Bairro</label>
-          <input type="text" class="form-control" name="bairro" id="bairro" placeholder="Bairro">
+          <input type="text" class="form-control" name="bairro" id="bairro" placeholder="Bairro" disabled>
         </div>
 
         <div class="form-group">
           <label for="cidade">Cidade</label>
-          <input type="text" class="form-control" name="cidade" id="cidade" placeholder="Cidade">
+          <input type="text" class="form-control" name="cidade" id="cidade" placeholder="Cidade" disabled>
         </div>
 
         <div class="form-group">
-          <label for="estado">Estado</label>
-          <input type="text" class="form-control" name="estado" id="estado" placeholder="Estado">
+          <label for="cidade">UF</label>
+          <input type="text" class="form-control" name="uf" id="uf" placeholder="UF" disabled>
         </div>
 
-
       </div>
+
       <div class="col-md-4">
-        <h2>Pagamento</h2>
+        <h2><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Pagamento</h2>
 
         <div class="form-group">
           <label for="forma_pagamento">Forma de pagamento</label>

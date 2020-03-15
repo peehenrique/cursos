@@ -25,7 +25,6 @@
         <thead>
           <tr>
             <th scope="col">Nome</th>
-            <th scope="col">E-mail</th>
             <th scope="col">Data Nascimento</th>
             <th scope="col" class="text-center">Status</th>
             <th scope="col" class="text-right">Opções</th>
@@ -37,7 +36,6 @@
           foreach ($clientes as $row) {
             echo '<tr>';
             echo '<td>'. $row->nome .'</td>';
-            echo '<td>'. $row->email .'</td>';
             echo '<td>'. formataDataView($row->data_nascimento) .'</td>';
             echo '<td class="text-center">'. ($row->ativo == 1? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>').'</td>';
             echo "<td class='text-right'>";

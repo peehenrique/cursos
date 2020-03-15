@@ -61,8 +61,6 @@ class Clientes extends CI_Controller {
       $dadosCliente['cpf'] = $this->input->post('cpf');
       $dadosCliente['data_nascimento'] = formataDataDb($this->input->post('data_nascimento'));
       $dadosCliente['telefone'] = $this->input->post('telefone');
-      $dadosCliente['email'] = $this->input->post('email');
-      $dadosCliente['senha'] = $this->input->post('senha');
       $dadosCliente['ativo'] = $this->input->post('ativo');
 
       if ($this->input->post('id_cliente')) {

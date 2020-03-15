@@ -56,7 +56,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label class="col-sm-2 control-label">Email</label>
           <div class="col-sm-7">
             <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo ( $dados != NULL ? $dados->email : set_value('email')); ?>">
@@ -68,7 +68,7 @@
           <div class="col-sm-4">
             <input type="password" name="senha" class="form-control" value="" placeholder="Senha">
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
           <label class="col-sm-2 control-label">Status Usuario</label>

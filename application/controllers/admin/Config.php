@@ -57,6 +57,7 @@ class Config extends CI_Controller {
       $dados['token'] = $this->input->post('token');
       $dados['cartao'] = $this->input->post('cartao');
       $dados['boleto'] = $this->input->post('boleto');
+      $dados['ambiente'] = $this->input->post('ambiente');
       $dados['transferencia'] = $this->input->post('transferencia');
       $dados['data_atualizacao'] = dataDiaDb();
 

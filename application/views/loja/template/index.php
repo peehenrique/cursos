@@ -116,5 +116,10 @@
 
     <script src="<?php echo base_url('/public/js/checkout.js'); ?>"></script>
 
+    <?php if (isset($pagseguro)): ?>
+      <script type="text/javascript" src="<?php echo $pagseguro; ?>"></script>
+    <?php endif; ?>
+    
+
   </body>
   </html>

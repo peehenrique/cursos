@@ -67,6 +67,16 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Ambiente</label>
+            <div class="col-sm-4">
+              <select class="form-control" name="ambiente">
+                  <option value="1" <?= ($query->ambiente == 1 ? 'selected="selected"' : '') ?>>Sandbox (Teste)</option>
+                  <option value="2" <?= ($query->ambiente == 2 ? 'selected="selected"' : '') ?>>Produção (Real)</option>
+              </select>
+            </div>
+          </div>
+
         </div>
         <!-- /.box-body -->
 

@@ -72,7 +72,7 @@
 
     <div class="col-md-6 text-right">
       <a href="<?php echo base_url(); ?>" class="btn btn-primary">Continuar comprando</a>
-      <a href="<?php echo base_url(); ?>" class="btn btn-success">Finalizar compra</a>
+      <a href="<?php echo base_url('checkout'); ?>" class="btn btn-success">Finalizar compra</a>
     </div>
 
   </div>

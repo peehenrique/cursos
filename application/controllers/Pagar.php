@@ -8,6 +8,7 @@ class Pagar extends CI_Controller{
   {
     parent::__construct();
     $this->load->model('loja/pagar_model');
+    $this->load->helper('string');
   }
 
   public function index()
@@ -76,7 +77,6 @@ class Pagar extends CI_Controller{
 
   public function pg_boleto()
   {
-    $retorno = FALSE;
     $this->form_validation->set_rules('nome', 'Nome completo', 'required|trim');
     $this->form_validation->set_rules('cpf', 'CPF', 'required|trim|is_unique[clientes.cpf]', ['is_unique'=>'CPF ja cadastrado na loja, por favor informar outro CPF']);
     $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|is_unique[users.email]');
@@ -95,11 +95,12 @@ class Pagar extends CI_Controller{
           'nome' => $this->input->post('nome'),
           'cpf' => $this->input->post('cpf'),
           'cep' => $this->input->post('cep'),
+          'telefone' => $this->input->post('telefone'),
           'endereco' => $this->input->post('endereco'),
           'numero' => $this->input->post('numero'),
           'bairro' => $this->input->post('bairro'),
           'cidade' => $this->input->post('cidade'),
-          'estado' => $this->input->post('estado')
+          'estado' => $this->input->post('uf')
         ];
 
         //GRAVA NO BANCO DE DADOS
@@ -132,14 +133,13 @@ class Pagar extends CI_Controller{
         exit;
       }
 
-
       //DADOS DO CLIENTE DO CLIENTE COMPRADOR
       $id_cliente = $query->id;
       $nomeComprador = $query->nome;
       $cpfComprador = $query->cpf;
       $emailComprador = $query->email;
       // RECEBEMOS NO PADRAO (11) 99999-9999
-      $telefoneComprador = $query->telefone;
+      $telefoneComprador = explode(' ', $query->telefone);
       //DADOS DE ENTREGA
       $cepComprador = $query->cep;
       $enderecoComprador = $query->endereco;
@@ -158,7 +158,7 @@ class Pagar extends CI_Controller{
       $pagarBoleto['extraAmount'] = '';
 
       //NUMERO DO PEDIDO
-      $ref_pedido = randon_string('numeric', 8);
+      $ref_pedido = random_string('numeric', 8);
       $pagarBoleto['reference'] = 'Ref. [# '. $ref_pedido .']';
 
       //DADOS COMPRADOR
@@ -176,18 +176,67 @@ class Pagar extends CI_Controller{
       $pagarBoleto['shippingAddressCountry'] = 'BRA';
 
       //DADOS FRETE
+      $freteComprador = formatoDecimal($this->input->post('frete_carrinho'));
       $pagarBoleto['shippingType'] = '1';
       $pagarBoleto['shippingCost'] = '';
 
       //DADOS TRANSACAO
       $pagarBoleto['senderHash'] = $this->input->post('hash');
 
-      
+      // ITENS DO CARRINHO
+      $this->load->library('carrinhocompra');
+      $carrinho = $this->carrinhocompra->listarProdutos();
+      $contador = 1;
+      foreach ($carrinho as $indice => $linha) {
+        $pagarBoleto['itemId'.$contador] = $linha['id'];
+        $pagarBoleto['itemDescription'.$contador] = remove_acentos($linha['nome']);
+        $pagarBoleto['itemAmount'.$contador] = number_format($linha['valor'], 2, '.', '');
+        $pagarBoleto['itemQuantity'.$contador] = $linha['qtd'];
+        $contador++;
+      }
 
-      $retorno = [
-        'erro' => 0,
-        'msg' => 'Cadastrado com sucesso'
-      ];
+      if ($config->ambiente == '1') {
+        $url = 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions';
+      } else{
+        $url = 'https://ws.pagseguro.uol.com.br/v2/transactions';
+      }
+
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_POST, count($pagarBoleto));
+      curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($pagarBoleto));
+      curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 45);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1');
+
+      if ($config->ambiente == 1) {
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      }else{
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+      }
+
+      $result = curl_exec($ch);
+      curl_close($ch);
+
+      $xml = simplexml_load_string($result);
+      $json = json_encode($xml);
+      $std = json_decode($json);
+
+      if (isset($std->error->code)) {
+        erroPagSeguro($std->error->code);
+      }
+
+      if (isset($std->code)) {
+        // echo "<pre>";
+        // print_r($std);
+
+        $retorno = [
+          'erro' => 0,
+          'code' => $std
+        ];
+
+      }
+
 
     }else{
 
@@ -199,7 +248,6 @@ class Pagar extends CI_Controller{
     }
 
     echo json_encode($retorno);
-    exit;
   }
 
 

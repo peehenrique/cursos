@@ -31,4 +31,15 @@ class Pagar_model extends CI_Model{
       $this->session->set_userdata('last_id', $last_id);
     }
   }
+
+  public function getClienteId($id=NULL)
+  {
+    if ($id) {
+      $this->db->select('clientes.*, users.email');
+      $this->db->from('clientes');
+      $this->db->join('users', 'users.id_cliente = clientes.id');
+      $this->db->where('clientes.id', $id);
+      return $this->db->get()->row();
+    }
+  }
 }

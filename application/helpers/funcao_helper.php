@@ -72,18 +72,58 @@ function formataMoedaReal($valor=NULL, $real=FALSE){
 }
 
 function formatoDecimal($valor=NULL){
-    $valor = str_replace('.', '', $valor);
-    $valor = str_replace(',', '.', $valor);
-    return $valor;
+  $valor = str_replace('.', '', $valor);
+  $valor = str_replace(',', '.', $valor);
+  return $valor;
 }
 
 function slug($string=NULL){
-	$string = remove_acentos($string);
-	return url_title($string, '-', TRUE);
+  $string = remove_acentos($string);
+  return url_title($string, '-', TRUE);
 }
 
 function remove_acentos($string=NULL){
-	$procurar    = array('À','Á','Ã','Â','É','Ê','Í','Ó','Õ','Ô','Ú','Ü','Ç','à','á','ã','â','é','ê','í','ó','õ','ô','ú','ü','ç');
-	$substituir  = array('a','a','a','a','e','r','i','o','o','o','u','u','c','a','a','a','a','e','e','i','o','o','o','u','u','c');
-	return str_replace($procurar, $substituir, $string);
+  $procurar    = array('À','Á','Ã','Â','É','Ê','Í','Ó','Õ','Ô','Ú','Ü','Ç','à','á','ã','â','é','ê','í','ó','õ','ô','ú','ü','ç');
+  $substituir  = array('a','a','a','a','e','r','i','o','o','o','u','u','c','a','a','a','a','e','e','i','o','o','o','u','u','c');
+  return str_replace($procurar, $substituir, $string);
+}
+
+function limparString($string=NULL)
+{
+  if ($string) {
+    // return preg_replace("/[^0-9\s]/");
+    return preg_replace('/[^0-9]+/', '', $string);
+  }
+}
+
+
+function erroPagSeguro($cod = null)
+{
+  if ($cod) {
+    $erro = [
+      '53004' => 'Quantidade do item invalida',
+      '10000' => 'Cartao de credito invalido'
+    ];
+
+    if (isset($erro[$cod])) {
+      $r = [
+        'erro' => $cod,
+        'msg' => $erro[$cod]
+      ];
+    } else{
+      $r = [
+        'erro' => $cod,
+        'msg' => 'Erro nao catalogado'
+      ];
+    }
+    
+  } else{
+    $r = [
+      'erro' => 1038,
+      'msg' => 'Erro nao catalogado'
+    ];
+  }
+
+  echo json_encode($r);
+  exit;
 }

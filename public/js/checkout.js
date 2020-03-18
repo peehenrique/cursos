@@ -167,7 +167,6 @@ var Checkout = function(){
 
     $('.btn-pagar-boleto').on('click', function(e){
       $('.erro_validacao').html('');
-      $('.msg_envio').html('');
 
       var hash_pagamento = PagSeguroDirectPayment.getSenderHash();
       $('[name="hash"]').val(hash_pagamento);

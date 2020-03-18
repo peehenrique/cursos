@@ -176,9 +176,10 @@ class Pagar extends CI_Controller{
       $pagarBoleto['shippingAddressCountry'] = 'BRA';
 
       //DADOS FRETE
-      $freteComprador = formatoDecimal($this->input->post('frete_carrinho'));
+      // $freteComprador = formatoDecimal($this->input->post('frete_carrinho'));
+      $freteComprador = number_format($this->input->post('frete_carrinho'), 2, '.', '');
       $pagarBoleto['shippingType'] = '1';
-      $pagarBoleto['shippingCost'] = '';
+      $pagarBoleto['shippingCost'] = $freteComprador;
 
       //DADOS TRANSACAO
       $pagarBoleto['senderHash'] = $this->input->post('hash');
@@ -218,25 +219,65 @@ class Pagar extends CI_Controller{
       $result = curl_exec($ch);
       curl_close($ch);
 
+      //PEGA O RETORNO E CONVERTE EM STRING - CONVERTE EM JSON E TRANFORMA EM OBJETO
       $xml = simplexml_load_string($result);
       $json = json_encode($xml);
       $std = json_decode($json);
 
+      //ERRO DA API
       if (isset($std->error->code)) {
         erroPagSeguro($std->error->code);
       }
 
+      // TRANSACAO REALIZADA COM SUCESSO
       if (isset($std->code)) {
-        // echo "<pre>";
-        // print_r($std);
+
+
+        //GRAVA PEDIDO
+        $pedido = [
+          'id_cliente' => $id_cliente,
+          'total_produto' => $this->carrinhocompra->total(),
+          'total_frete' => $freteComprador,
+          'total_pedido' => ($freteComprador + $this->carrinhocompra->total()),
+          'data_cadastro' => dataDiaDb()
+        ];
+
+        $this->pagar_model->doInsertPedido($pedido);
+        $id_pedido = $this->session->userdata('last_id_pedido');
+
+        // PRODUTOS DO PEDIDO
+        foreach ($carrinho as $indice => $linha) {
+          $produto = [
+            'id_pedido' => $id_pedido,
+            'id_produto' => $linha['id'],
+            'qtd' => $linha['qtd'],
+            'valor_unit' => number_format($linha['valor'], 2, '.', ''),
+            'valor_total' => number_format($linha['subtotal'], 2, '.', '')
+          ];
+          $this->pagar_model->doInsertPedidoProdutos($produto);
+        }
+
+        // GRAVAR TRANSACAO
+        $transacao = [
+          'id_pedido' => $id_pedido,
+          'id_cliente' => $id_cliente,
+          'cod_transacao' => $std->code,
+          'data' => dataDiaDb(),
+          'tipo' => 1, //tipo 1 boleto, 2 cartao, 3 transferencia
+          'status' => $std->status,
+          't_parcela' => 1,
+          'v_parcela' => $std->grossAmount,
+          'url_boleto' => $std->paymentLink
+        ];
+        $this->pagar_model->doInsertPedidoTransacao($transacao);
 
         $retorno = [
           'erro' => 0,
-          'code' => $std
+          'msg' => 'Pedido realizado com sucesso',
+          'status' => 'Aguardando pagamento',
+          'url_boleto' => $std->paymentLink
         ];
-
       }
-
 
     }else{
 

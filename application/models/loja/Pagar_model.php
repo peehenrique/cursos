@@ -42,4 +42,29 @@ class Pagar_model extends CI_Model{
       return $this->db->get()->row();
     }
   }
+
+  public function doInsertPedido($dados=NULL)
+  {
+    if (is_array($dados)) {
+      $this->db->insert('pedidos', $dados);
+      $last_id_pedido = $this->db->insert_id();
+      $this->session->set_userdata('last_id_pedido', $last_id_pedido);
+    }
+  }
+
+  public function doInsertPedidoProdutos($dados=NULL)
+  {
+    if (is_array($dados)) {
+      $this->db->insert('pedidos_produtos', $dados);
+    }
+  }
+
+  public function doInsertPedidoTransacao($dados=NULL)
+  {
+    if (is_array($dados)) {
+      $this->db->insert('transacao', $dados);
+    }
+  }
+
+
 }

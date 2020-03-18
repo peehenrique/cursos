@@ -198,7 +198,18 @@ var Checkout = function(){
 
             if (res.erro == 0) {
 
-              alert('form enviado');
+              $('.checkout_loja').remove();
+              var msg_sucesso = '<div class="row">'+
+                '<div class="col-md-12 text-center">'+
+                '<h2>'+ res.msg +'</h2>'+
+                '<p>Status do pedido: '+ res.status +'</p>'+
+                '<p>Numero pedido: '+ res.numero_pedido +'</p>'+
+                '<p>Codigo da transacao: '+ res.cod_transacao +'</p>'+
+                '<p>Link do Boleto: <a href="'+ res.url_boleto +'" target="_blank">Baixar Boleto</a></p>'+
+                '</div>'+
+              '</div>'
+              $('.pedido_concluido').html(msg_sucesso);
+
 
             } else{
               $('.erro_validacao').removeClass('hide');

@@ -1,4 +1,6 @@
-<div class="container">
+<div class="row pedido_concluido"></div>
+
+<div class="container checkout_loja">
   <div class="row">
 
     <div class="row">
@@ -23,7 +25,6 @@
                   <?php echo $linha['qtd'] ?>
                 </td>
                 <td><?php echo formataMoedaReal($linha['subtotal'], 1) ?></td>
-
               </tr>
             <?php endforeach; ?>
 

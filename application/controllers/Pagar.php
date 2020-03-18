@@ -176,8 +176,7 @@ class Pagar extends CI_Controller{
       $pagarBoleto['shippingAddressCountry'] = 'BRA';
 
       //DADOS FRETE
-      // $freteComprador = formatoDecimal($this->input->post('frete_carrinho'));
-      $freteComprador = number_format($this->input->post('frete_carrinho'), 2, '.', '');
+      $freteComprador = formatoDecimal($this->input->post('frete_carrinho'));
       $pagarBoleto['shippingType'] = '1';
       $pagarBoleto['shippingCost'] = $freteComprador;
 
@@ -238,8 +237,9 @@ class Pagar extends CI_Controller{
           'id_cliente' => $id_cliente,
           'total_produto' => $this->carrinhocompra->total(),
           'total_frete' => $freteComprador,
-          'total_pedido' => ($freteComprador + $this->carrinhocompra->total()),
-          'data_cadastro' => dataDiaDb()
+          'total_pedido' => $this->carrinhocompra->total(),
+          'data_cadastro' => dataDiaDb(),
+          'ref' => $ref_pedido
         ];
 
         $this->pagar_model->doInsertPedido($pedido);
@@ -275,7 +275,9 @@ class Pagar extends CI_Controller{
           'erro' => 0,
           'msg' => 'Pedido realizado com sucesso',
           'status' => 'Aguardando pagamento',
-          'url_boleto' => $std->paymentLink
+          'url_boleto' => $std->paymentLink,
+          'numero_pedido' => $ref_pedido,
+          'cod_transacao' => $std->code
         ];
       }
 

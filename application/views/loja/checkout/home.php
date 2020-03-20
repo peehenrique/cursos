@@ -159,7 +159,7 @@
             <input type="text" class="form-control" id="cc_codigo" placeholder="000">
           </div>
 
-          <input type="text" class="form-control" name="token_pagamento" id="token_pagamento" placeholder="Token de pagamento" required="">
+          <input type="text" class="form-control" name="token_pagamento" id="token_pagamento" placeholder="Token de pagamento">
 
           <button type="button" class="btn btn-success btn-pagar-cartao">Pagar com cartao de credito</button>
 

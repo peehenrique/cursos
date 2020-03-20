@@ -316,16 +316,63 @@ var Checkout = function(){
   }
 
 
+
+  function gerarTokenPagamento(){
+    //Numero do cartao
+    var n_cartao = $('#cc_numero').val();
+
+    //TITULAR DO CARTAO
+    var nome_cartao = $('#cc_titular').val();
+
+    //VALIDADE DO CARTAO
+    var validade = $('#cc_validade').val();
+    validade = validade.split('/');
+    var m_cc = validade[0];
+    var a_cc = validade[1];
+
+    //CODIGO DE SEGURANCA
+    var cc_codigo = $('#cc_codigo').val();
+
+
+    PagSeguroDirectPayment.createCardToken({
+      cardNumber:n_cartao,
+      cvv:cc_codigo,
+      expirationMonth:m_cc,
+      expirationYear:a_cc,
+      success: function(response){
+
+        //Pego o token de pagamento
+        tokenPagamento = response.card.token;
+
+        //Verifico se retornou
+        if (!tokenPagamento) {
+          alert('Cartao invalido');
+        }
+
+        // gravo no input
+        $('#token_pagamento').val(tokenPagamento);
+
+      },
+      error: function(){
+        alert('Erro ao gerar token de pagamento');
+      }
+
+    });
+
+  }
+
   // PAGAMENTO VIA CARTAO DE CREDITO
   var btnPagarCartaoCredito = function(){
 
     $('.btn-pagar-cartao').on('click', function(e){
+      //gerar o token de PAGAMENTO
+      gerarTokenPagamento();
 
       $('.erro_validacao').html('');
 
+      //gera o hash de pagamento
       var hash_pagamento = PagSeguroDirectPayment.getSenderHash();
       $('[name="hash"]').val(hash_pagamento);
-
 
       var form = $('.form_checkout_pagar');
       var erro_validacao = false;
@@ -342,44 +389,43 @@ var Checkout = function(){
       if (!erro_validacao) {
         e.preventDefault();
 
-        // $.ajax({
-        //   type: 'post',
-        //   url: url_loja+'pagar/pg_cartao',
-        //   data: form.serialize(),
-        //   dataType: 'JSON',
-        //   beforeSend: function(){
-        //     $('.msg_envio').removeClass('hide');
-        //   },
-        //   success: function(res){
-        //
-        //     if (res.erro == 0) {
-        //
-        //       $('.checkout_loja').remove();
-        //       var msg_sucesso = '<div class="row">'+
-        //       '<div class="col-md-12 text-center">'+
-        //       '<h2>'+ res.msg +'</h2>'+
-        //       '<p>Status do pedido: '+ res.status +'</p>'+
-        //       '<p>Numero pedido: '+ res.numero_pedido +'</p>'+
-        //       '<p>Codigo da transacao: '+ res.cod_transacao +'</p>'+
-        //       '<p>Link do Boleto: <a href="'+ res.url_banco +'" target="_blank">Continuar pagamento</a></p>'+
-        //       '</div>'+
-        //       '</div>'
-        //       $('.pedido_concluido').html(msg_sucesso);
-        //
-        //
-        //     } else{
-        //       $('.erro_validacao').removeClass('hide');
-        //       $('.erro_validacao').html(res.msg);
-        //     }
-        //
-        //   },
-        //   error: function(){
-        //     alert('erro ao enviar formulario');
-        //   }
-        // });
 
 
+      $.ajax({
+        type: 'post',
+        url: url_loja+'pagar/pg_cartao',
+        data: form.serialize(),
+        dataType: 'JSON',
+        beforeSend: function(){
+          $('.msg_envio').removeClass('hide');
+        },
+        success: function(res){
 
+          if (res.erro == 0) {
+
+            $('.checkout_loja').remove();
+            var msg_sucesso = '<div class="row">'+
+            '<div class="col-md-12 text-center">'+
+            '<h2>'+ res.msg +'</h2>'+
+            '<p>Status do pedido: '+ res.status +'</p>'+
+            '<p>Numero pedido: '+ res.numero_pedido +'</p>'+
+            '<p>Codigo da transacao: '+ res.cod_transacao +'</p>'+
+            '<p>Link do Boleto: <a href="#" target="_blank">Acessa minha conta</a></p>'+
+            '</div>'+
+            '</div>'
+            $('.pedido_concluido').html(msg_sucesso);
+
+
+          } else{
+            $('.erro_validacao').removeClass('hide');
+            $('.erro_validacao').html(res.msg);
+          }
+
+        },
+        error: function(){
+          alert('erro ao enviar formulario');
+        }
+      });
 
 
       } else{
@@ -393,6 +439,7 @@ var Checkout = function(){
 
 
   }
+
 
 
 

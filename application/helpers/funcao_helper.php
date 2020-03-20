@@ -102,7 +102,8 @@ function erroPagSeguro($cod = null)
   if ($cod) {
     $erro = [
       '53004' => 'Quantidade do item invalida',
-      '10000' => 'Cartao de credito invalido'
+      '10000' => 'Cartao de credito invalido',
+      '53041' => 'Valor da parcela esta errado'
     ];
 
     if (isset($erro[$cod])) {
@@ -116,7 +117,7 @@ function erroPagSeguro($cod = null)
         'msg' => 'Erro nao catalogado'
       ];
     }
-    
+
   } else{
     $r = [
       'erro' => 1038,

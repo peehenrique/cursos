@@ -14,6 +14,11 @@ class Checkout extends CI_Controller {
 
 	public function index()
 	{
+
+		if ($this->carrinhocompra->totalItem() == 0) {
+			redirect('/', 'refresh');
+		}
+
 		$query = $this->loja_model->getDadosLoja();
 		$data['titulo'] = $query->titulo;
 		$data['dados_loja'] = $query;
@@ -25,10 +30,12 @@ class Checkout extends CI_Controller {
 		$data['pagseguro'] = $this->pagar_model->getAmbiente();
 
 		$this->load->view('loja/template/index', $data);
+
 	}
 
 	public function login()
 	{
+
 		$query = $this->loja_model->getDadosLoja();
 		$data['titulo'] = "Tela de login";
 		$data['dados_loja'] = $query;

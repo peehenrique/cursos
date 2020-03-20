@@ -133,7 +133,7 @@
           <select class="form-control forma_pagamento" name="forma_pagamento">
             <option value="1">Cartao de credito</option>
             <option value="2">Boleto bancario</option>
-            <option value="3">Transferencia bancaria</option>
+            <option value="3">Debito em conta bancaria</option>
           </select>
         </div>
 
@@ -159,6 +159,8 @@
             <input type="text" class="form-control" id="cc_codigo" placeholder="000">
           </div>
 
+          <input type="text" class="form-control" name="token_pagamento" id="token_pagamento" placeholder="Token de pagamento" required="">
+
           <button type="button" class="btn btn-success btn-pagar-cartao">Pagar com cartao de credito</button>
 
         </div>
@@ -170,7 +172,21 @@
         </div>
 
         <div class="pagamento-transferencia hide">
+
+          <div class="form-group">
+            <label for="nome_banco">Selecione um banco</label>
+
+            <select class="form-control nome_banco" name="nome_banco" placeholder="Banco" required="" disabled>
+              <option></option>
+              <option value="bradesco">Bradesco</option>
+              <option value="itau">Itau</option>
+              <option value="bancodobrasil">Banco do Brasil</option>
+              <option value="banrisul">Banrisul</option>
+            </select>
+          </div>
+
           <div class="alert alert-info" role="alert">
+            <p>Ao final da compra, vai poder acessar o ambiente seguro do seu banco</p> <br>
             <button type="button" class="btn btn-success btn-pagar-transferencia">Pagar com transferencia</button>
           </div>
         </div>

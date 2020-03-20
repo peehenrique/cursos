@@ -12,7 +12,6 @@ class Carrinho extends CI_Controller {
 
   public function index()
   {
-
     $query = $this->loja_model->getDadosLoja();
 
     $data['titulo'] = 'Carrinho de compra';
@@ -85,6 +84,8 @@ class Carrinho extends CI_Controller {
   public function calculaFrete()
   {
     $this->form_validation->set_rules('cep', 'CEP', 'required|trim');
+
+
     if ($this->form_validation->run() == TRUE) {
 
       $cep = $this->input->post('cep');
@@ -112,9 +113,11 @@ class Carrinho extends CI_Controller {
 
       $url_correios = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=&sDsSenha=&sCepOrigem=".$cep_origem."&sCepDestino=".$cep_destino."&nVlPeso=".$peso."&nCdFormato=1&nVlComprimento=".$comprimento."&nVlAltura=".$altura."&nVlLargura=".$largura."&sCdMaoPropria=n&nVlValorDeclarado=".$valor_declarado."&sCdAvisoRecebimento=n&nCdServico=".$cod_servico."&nVlDiametro=0&StrRetorno=xml";
 
+
       $xml = simplexml_load_file($url_correios);
       $xml = json_encode($xml);
       $consulta = json_decode($xml);
+
 
       $prazo_de_entrega = $consulta->cServico->PrazoEntrega + $config->somar_frete;
       $total_produtos = $this->carrinhocompra->total();

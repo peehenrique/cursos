@@ -118,6 +118,7 @@ var Checkout = function(){
         $('.pagamento-boleto').addClass('hide');
         $('.pagamento-transferencia').addClass('hide');
         $('.pagamento-cartao input').prop('disabled', false);
+        $('.nome_banco').prop('disabled', true);
         break;
 
         case "2":
@@ -125,6 +126,7 @@ var Checkout = function(){
         $('.pagamento-cartao').addClass('hide');
         $('.pagamento-transferencia').addClass('hide');
         $('.pagamento-cartao input').prop('disabled', true);
+        $('.nome_banco').prop('disabled', true);
         break;
 
         case "3":
@@ -132,6 +134,7 @@ var Checkout = function(){
         $('.pagamento-boleto').addClass('hide');
         $('.pagamento-cartao').addClass('hide');
         $('.pagamento-cartao input').prop('disabled', true);
+        $('.nome_banco').prop('disabled', false);
         break;
 
       }
@@ -200,13 +203,13 @@ var Checkout = function(){
 
               $('.checkout_loja').remove();
               var msg_sucesso = '<div class="row">'+
-                '<div class="col-md-12 text-center">'+
-                '<h2>'+ res.msg +'</h2>'+
-                '<p>Status do pedido: '+ res.status +'</p>'+
-                '<p>Numero pedido: '+ res.numero_pedido +'</p>'+
-                '<p>Codigo da transacao: '+ res.cod_transacao +'</p>'+
-                '<p>Link do Boleto: <a href="'+ res.url_boleto +'" target="_blank">Baixar Boleto</a></p>'+
-                '</div>'+
+              '<div class="col-md-12 text-center">'+
+              '<h2>'+ res.msg +'</h2>'+
+              '<p>Status do pedido: '+ res.status +'</p>'+
+              '<p>Numero pedido: '+ res.numero_pedido +'</p>'+
+              '<p>Codigo da transacao: '+ res.cod_transacao +'</p>'+
+              '<p>Link do Boleto: <a href="'+ res.url_boleto +'" target="_blank">Baixar Boleto</a></p>'+
+              '</div>'+
               '</div>'
               $('.pedido_concluido').html(msg_sucesso);
 
@@ -235,6 +238,164 @@ var Checkout = function(){
 
   }
 
+  // PAGAMENTO VIA TRANSFERENCIA BANCARIA
+  var btnPagarTransferencia = function(){
+
+    $('.btn-pagar-transferencia').on('click', function(e){
+
+      $('.erro_validacao').html('');
+
+      var hash_pagamento = PagSeguroDirectPayment.getSenderHash();
+      $('[name="hash"]').val(hash_pagamento);
+
+      var form = $('.form_checkout_pagar');
+      var erro_validacao = false;
+      var retorno_erro_validacao = "";
+
+      $(form).find('input, select').each(function(){
+        if ($(this).val() == "" && $(this).prop('disabled') == false ) {
+          erro_validacao = true;
+          var nome_campo = $(this).attr('placeholder');
+          retorno_erro_validacao += '<p>'+nome_campo + ' e um campo obrigatorio</p>';
+        }
+      });
+
+      if (!erro_validacao) {
+        e.preventDefault();
+
+        $.ajax({
+          type: 'post',
+          url: url_loja+'pagar/pg_debito',
+          data: form.serialize(),
+          dataType: 'JSON',
+          beforeSend: function(){
+            $('.msg_envio').removeClass('hide');
+          },
+          success: function(res){
+
+            if (res.erro == 0) {
+
+              $('.checkout_loja').remove();
+              var msg_sucesso = '<div class="row">'+
+              '<div class="col-md-12 text-center">'+
+              '<h2>'+ res.msg +'</h2>'+
+              '<p>Status do pedido: '+ res.status +'</p>'+
+              '<p>Numero pedido: '+ res.numero_pedido +'</p>'+
+              '<p>Codigo da transacao: '+ res.cod_transacao +'</p>'+
+              '<p>Link do Boleto: <a href="'+ res.url_banco +'" target="_blank">Continuar pagamento</a></p>'+
+              '</div>'+
+              '</div>'
+              $('.pedido_concluido').html(msg_sucesso);
+
+
+            } else{
+              $('.erro_validacao').removeClass('hide');
+              $('.erro_validacao').html(res.msg);
+            }
+
+          },
+          error: function(){
+            alert('erro ao enviar formulario');
+          }
+        });
+
+
+
+
+
+      } else{
+        $('.erro_validacao').removeClass('hide');
+        $('.erro_validacao').html(retorno_erro_validacao);
+      }
+
+
+
+    })
+
+
+  }
+
+
+  // PAGAMENTO VIA CARTAO DE CREDITO
+  var btnPagarCartaoCredito = function(){
+
+    $('.btn-pagar-cartao').on('click', function(e){
+
+      $('.erro_validacao').html('');
+
+      var hash_pagamento = PagSeguroDirectPayment.getSenderHash();
+      $('[name="hash"]').val(hash_pagamento);
+
+
+      var form = $('.form_checkout_pagar');
+      var erro_validacao = false;
+      var retorno_erro_validacao = "";
+
+      $(form).find('input, select').each(function(){
+        if ($(this).val() == "" && $(this).prop('disabled') == false ) {
+          erro_validacao = true;
+          var nome_campo = $(this).attr('placeholder');
+          retorno_erro_validacao += '<p>'+nome_campo + ' e um campo obrigatorio</p>';
+        }
+      });
+
+      if (!erro_validacao) {
+        e.preventDefault();
+
+        // $.ajax({
+        //   type: 'post',
+        //   url: url_loja+'pagar/pg_cartao',
+        //   data: form.serialize(),
+        //   dataType: 'JSON',
+        //   beforeSend: function(){
+        //     $('.msg_envio').removeClass('hide');
+        //   },
+        //   success: function(res){
+        //
+        //     if (res.erro == 0) {
+        //
+        //       $('.checkout_loja').remove();
+        //       var msg_sucesso = '<div class="row">'+
+        //       '<div class="col-md-12 text-center">'+
+        //       '<h2>'+ res.msg +'</h2>'+
+        //       '<p>Status do pedido: '+ res.status +'</p>'+
+        //       '<p>Numero pedido: '+ res.numero_pedido +'</p>'+
+        //       '<p>Codigo da transacao: '+ res.cod_transacao +'</p>'+
+        //       '<p>Link do Boleto: <a href="'+ res.url_banco +'" target="_blank">Continuar pagamento</a></p>'+
+        //       '</div>'+
+        //       '</div>'
+        //       $('.pedido_concluido').html(msg_sucesso);
+        //
+        //
+        //     } else{
+        //       $('.erro_validacao').removeClass('hide');
+        //       $('.erro_validacao').html(res.msg);
+        //     }
+        //
+        //   },
+        //   error: function(){
+        //     alert('erro ao enviar formulario');
+        //   }
+        // });
+
+
+
+
+
+      } else{
+        $('.erro_validacao').removeClass('hide');
+        $('.erro_validacao').html(retorno_erro_validacao);
+      }
+
+
+
+    })
+
+
+  }
+
+
+
 
 
   return {
@@ -243,6 +404,8 @@ var Checkout = function(){
       calcularCep();
       setSessionId();
       btnPagarBoleto();
+      btnPagarTransferencia();
+      btnPagarCartaoCredito();
     }
   }
 

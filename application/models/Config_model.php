@@ -63,4 +63,11 @@ class Config_model extends CI_Model{
     }
   }
 
+  public function inserirBanco($value='')
+  {
+    $this->db->insert('clientes', $data);
+
+    
+  }
+
 }

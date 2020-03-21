@@ -69,6 +69,15 @@
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<?php echo base_url('listar-marcas') ?>">Listar marcas</a></li>
+            <?php if (!$this->ion_auth->logged_in()): ?>
+              <li><a href="<?php echo base_url('cadastrar') ?>">Cadastrar</a></li>
+              <li><a href="<?php echo base_url('login') ?>">Login</a></li>
+            <?php endif; ?>
+            <?php if ($this->ion_auth->logged_in()): ?>
+              <!-- <li>Ola, <?php echo $user->username; ?></li> -->
+              <li><a href="<?php echo base_url('login/sair') ?>">Sair</a></li>
+              <li><a href="<?php echo base_url('pedidos') ?>">Meus pedidos</a></li>
+            <?php endif; ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="total-carrinho-menu">
@@ -119,7 +128,7 @@
     <?php if (isset($pagseguro)): ?>
       <script type="text/javascript" src="<?php echo $pagseguro; ?>"></script>
     <?php endif; ?>
-    
+
 
   </body>
   </html>

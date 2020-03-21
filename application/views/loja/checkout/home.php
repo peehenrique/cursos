@@ -59,27 +59,32 @@
         <h2><i class="fa fa-users" aria-hidden="true"></i> Comprador</h2>
         <p>Ja tem cadastro, <a href="<?php echo base_url('checkout/login') ?>">clique aqui para logar</a></p>
 
+        <?php if ($this->ion_auth->logged_in()): ?>
+          <input type="hidden" class="form-control" name="id_cliente" value="<?= $user->id_cliente ?>" id="id_cliente" placeholder="id_cliente">
+        <?php endif; ?>
 
         <div class="form-group">
           <label for="nome">Nome Completo</label>
-          <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome Completo" required="">
+          <input type="text" class="form-control" name="nome" value="<?= ($usuario ? $usuario->nome : '') ?>" id="nome" placeholder="Nome Completo" required="">
         </div>
         <div class="form-group">
           <label for="cpf">CPF</label>
-          <input type="text" class="form-control" name="cpf" id="cpf" placeholder="CPF" required="">
+          <input type="text" class="form-control" name="cpf" value="<?= ($usuario ? $usuario->cpf : '') ?>" id="cpf" placeholder="CPF" required="">
         </div>
         <div class="form-group">
           <label for="telefone">Telefone</label>
-          <input type="text" class="form-control" name="telefone" id="telefone" placeholder="Telefone" required="">
+          <input type="text" class="form-control" value="<?= ($usuario ? $usuario->telefone : '') ?>" name="telefone" id="telefone" placeholder="Telefone" required="">
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" name="email" id="email" placeholder="Email" required="">
+          <input type="email" class="form-control" name="email" value="<?= ($this->ion_auth->logged_in() ? $user->email : '') ?>" id="email" placeholder="Email" required="">
         </div>
+        <?php if(!$this->ion_auth->logged_in()){ ?>
         <div class="form-group">
           <label for="senha">Senha</label>
           <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha" required="">
         </div>
+        <?php } ?>
       </div>
       <div class="col-md-4">
         <h2><i class="fa fa-paper-plane" aria-hidden="true"></i> Envio</h2>
@@ -87,7 +92,7 @@
         <div class="form-group">
           <label for="cep">CEP</label>
           <div class="input-group">
-            <input type="text" class="form-control" name="cep" id="cep" placeholder="CEP">
+            <input type="text" class="form-control" name="cep" value="<?= ($usuario ? $usuario->cep : '') ?>" id="cep" placeholder="CEP">
             <span class="input-group-btn">
               <button class="btn btn-success btn-calcular-cep" type="button">Calcular</button>
             </span>
@@ -99,27 +104,27 @@
 
         <div class="form-group">
           <label for="endereco">Endereco</label>
-          <input type="text" class="form-control" name="endereco" id="endereco" placeholder="Endereco">
+          <input type="text" class="form-control" value="<?= ($usuario ? $usuario->endereco : '') ?>" name="endereco" id="endereco" placeholder="Endereco">
         </div>
 
         <div class="form-group">
           <label for="numero">Numero</label>
-          <input type="text" class="form-control" name="numero" id="numero" placeholder="Numero">
+          <input type="text" class="form-control" value="<?= ($usuario ? $usuario->numero : '') ?>" name="numero" id="numero" placeholder="Numero">
         </div>
 
         <div class="form-group">
           <label for="cc_numero">Bairro</label>
-          <input type="text" class="form-control" name="bairro" id="bairro" placeholder="Bairro">
+          <input type="text" class="form-control" value="<?= ($usuario ? $usuario->bairro : '') ?>" name="bairro" id="bairro" placeholder="Bairro">
         </div>
 
         <div class="form-group">
           <label for="cidade">Cidade</label>
-          <input type="text" class="form-control" name="cidade" id="cidade" placeholder="Cidade">
+          <input type="text" class="form-control" value="<?= ($usuario ? $usuario->cidade : '') ?>" name="cidade" id="cidade" placeholder="Cidade">
         </div>
 
         <div class="form-group">
           <label for="cidade">UF</label>
-          <input type="text" class="form-control" name="uf" id="uf" placeholder="UF">
+          <input type="text" class="form-control" value="<?= ($usuario ? $usuario->estado : '') ?>" name="uf" id="uf" placeholder="UF">
         </div>
 
       </div>

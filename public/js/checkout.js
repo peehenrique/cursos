@@ -157,9 +157,6 @@ var Checkout = function(){
         }else{
           alert(res.msg);
         }
-      },
-      error: function(error){
-        alert('Ocorreu um erro, tente novamente');
       }
     })
 
@@ -368,72 +365,73 @@ var Checkout = function(){
       //gerar o token de PAGAMENTO
       gerarTokenPagamento();
 
-      $('.erro_validacao').html('');
+      var tokenPag =  $('#token_pagamento').val();
 
-      //gera o hash de pagamento
-      var hash_pagamento = PagSeguroDirectPayment.getSenderHash();
-      $('[name="hash"]').val(hash_pagamento);
+      setTimeout(function(){
+        $('.erro_validacao').html('');
 
-      var form = $('.form_checkout_pagar');
-      var erro_validacao = false;
-      var retorno_erro_validacao = "";
+        //gera o hash de pagamento
+        var hash_pagamento = PagSeguroDirectPayment.getSenderHash();
+        $('[name="hash"]').val(hash_pagamento);
 
-      $(form).find('input, select').each(function(){
-        if ($(this).val() == "" && $(this).prop('disabled') == false ) {
-          erro_validacao = true;
-          var nome_campo = $(this).attr('placeholder');
-          retorno_erro_validacao += '<p>'+nome_campo + ' e um campo obrigatorio</p>';
-        }
-      });
+        var form = $('.form_checkout_pagar');
+        var erro_validacao = false;
+        var retorno_erro_validacao = "";
 
-      if (!erro_validacao) {
-        e.preventDefault();
-
-
-
-      $.ajax({
-        type: 'post',
-        url: url_loja+'pagar/pg_cartao',
-        data: form.serialize(),
-        dataType: 'JSON',
-        beforeSend: function(){
-          $('.msg_envio').removeClass('hide');
-        },
-        success: function(res){
-
-          if (res.erro == 0) {
-
-            $('.checkout_loja').remove();
-            var msg_sucesso = '<div class="row">'+
-            '<div class="col-md-12 text-center">'+
-            '<h2>'+ res.msg +'</h2>'+
-            '<p>Status do pedido: '+ res.status +'</p>'+
-            '<p>Numero pedido: '+ res.numero_pedido +'</p>'+
-            '<p>Codigo da transacao: '+ res.cod_transacao +'</p>'+
-            '<p>Link do Boleto: <a href="#" target="_blank">Acessa minha conta</a></p>'+
-            '</div>'+
-            '</div>'
-            $('.pedido_concluido').html(msg_sucesso);
-
-
-          } else{
-            $('.erro_validacao').removeClass('hide');
-            $('.erro_validacao').html(res.msg);
+        $(form).find('input, select').each(function(){
+          if ($(this).val() == "" && $(this).prop('disabled') == false ) {
+            erro_validacao = true;
+            var nome_campo = $(this).attr('placeholder');
+            retorno_erro_validacao += '<p>'+nome_campo + ' e um campo obrigatorio</p>';
           }
+        });
 
-        },
-        error: function(){
-          alert('erro ao enviar formulario');
+        if (!erro_validacao) {
+          e.preventDefault();
+
+
+
+        $.ajax({
+          type: 'post',
+          url: url_loja+'pagar/pg_cartao',
+          data: form.serialize(),
+          dataType: 'JSON',
+          beforeSend: function(){
+            $('.msg_envio').removeClass('hide');
+          },
+          success: function(res){
+
+            if (res.erro == 0) {
+
+              $('.checkout_loja').remove();
+              var msg_sucesso = '<div class="row">'+
+              '<div class="col-md-12 text-center">'+
+              '<h2>'+ res.msg +'</h2>'+
+              '<p>Status do pedido: '+ res.status +'</p>'+
+              '<p>Numero pedido: '+ res.numero_pedido +'</p>'+
+              '<p>Codigo da transacao: '+ res.cod_transacao +'</p>'+
+              '<p>Link do Boleto: <a href="#" target="_blank">Acessa minha conta</a></p>'+
+              '</div>'+
+              '</div>'
+              $('.pedido_concluido').html(msg_sucesso);
+
+
+            } else{
+              $('.erro_validacao').removeClass('hide');
+              $('.erro_validacao').html(res.msg);
+            }
+
+          },
+          error: function(){
+            alert('erro ao enviar formulario');
+          }
+        });
+
+        } else{
+          $('.erro_validacao').removeClass('hide');
+          $('.erro_validacao').html(retorno_erro_validacao);
         }
-      });
-
-
-      } else{
-        $('.erro_validacao').removeClass('hide');
-        $('.erro_validacao').html(retorno_erro_validacao);
-      }
-
-
+      }, 4000);
 
     })
 

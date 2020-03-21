@@ -513,10 +513,14 @@ class Pagar extends CI_Controller{
 
   public function pg_cartao()
   {
-    $this->form_validation->set_rules('nome', 'Nome completo', 'required|trim');
-    $this->form_validation->set_rules('cpf', 'CPF', 'required|trim|is_unique[clientes.cpf]', ['is_unique'=>'CPF ja cadastrado na loja, por favor informar outro CPF']);
-    $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|is_unique[users.email]');
-    $this->form_validation->set_rules('senha', 'Senha', 'required|trim');
+    if ($this->input->post('id_cliente')){
+      $this->form_validation->set_rules('nome', 'Nome completo', 'required|trim');
+    } else{
+      $this->form_validation->set_rules('nome', 'Nome completo', 'required|trim');
+      $this->form_validation->set_rules('cpf', 'CPF', 'required|trim|is_unique[clientes.cpf]', ['is_unique'=>'CPF ja cadastrado na loja, por favor informar outro CPF']);
+      $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|is_unique[users.email]');
+      $this->form_validation->set_rules('senha', 'Senha', 'required|trim');
+    }
 
     if ($this->form_validation->run()) {
 
@@ -635,8 +639,6 @@ class Pagar extends CI_Controller{
       $pagarBoleto['billingAddressCountry'] = 'BRA';
       // $pagarBoleto['creditCardHolderBirthDate'] = '27/10/1987';
 
-
-
       // ITENS DO CARRINHO
       $this->load->library('carrinhocompra');
       $carrinho = $this->carrinhocompra->listarProdutos();
@@ -650,7 +652,7 @@ class Pagar extends CI_Controller{
       }
 
       // PARCELAS
-      $valor_pagar = $this->carrinhocompra->total() + $this->input->post('frete_carrinho');
+      $valor_pagar = $this->carrinhocompra->total() + $freteComprador;
       $pagarBoleto['installmentQuantity'] = 1;
       $pagarBoleto['installmentValue'] = number_format($valor_pagar, 2, ".", '');
 

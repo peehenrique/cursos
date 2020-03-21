@@ -13,6 +13,7 @@ class Loja extends CI_Controller {
 
 	public function index()
 	{
+		$data['user'] = $this->ion_auth->user()->row();
 		$query = $this->loja_model->getDadosLoja();
 		$data['titulo'] = $query->titulo;
 		$data['dados_loja'] = $query;
@@ -22,7 +23,6 @@ class Loja extends CI_Controller {
 
 		$this->load->view('loja/template/index', $data);
 	}
-
 
 
 }

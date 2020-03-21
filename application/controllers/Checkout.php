@@ -15,6 +15,11 @@ class Checkout extends CI_Controller {
 	public function index()
 	{
 
+		if ($this->ion_auth->logged_in()) {
+			$data['user'] = $this->ion_auth->user()->row();
+			$data['usuario'] = $this->checkout_model->getDadosUsuario($data['user']->id_cliente);
+		}
+
 		if ($this->carrinhocompra->totalItem() == 0) {
 			redirect('/', 'refresh');
 		}
@@ -33,17 +38,6 @@ class Checkout extends CI_Controller {
 
 	}
 
-	public function login()
-	{
-
-		$query = $this->loja_model->getDadosLoja();
-		$data['titulo'] = "Tela de login";
-		$data['dados_loja'] = $query;
-		$data['categorias'] = $this->loja_model->getCategorias();
-		$data['view'] = 'loja/checkout/login';
-
-		$this->load->view('loja/template/index', $data);
-	}
 
 
 	public function calculaFrete()
